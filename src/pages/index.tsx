@@ -7,16 +7,17 @@ import ImageCarousel from "../components/ImageCarousel";
 
 const Home: NextPage = () => {
     return (
-        <div className="z-1 relative flex min-h-screen flex-col bg-[#0f0f0f] font-main text-white">
+        <div className="relative flex min-h-screen flex-col bg-[#0f0f0f] font-main text-white">
             <Head>
                 <title>Brody McFarland</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Navbar />
             <SocialLinks />
-            <Hero />
-            <ImageCarousel />
-            <main className=""></main>
+            <main>
+                <Hero />
+                <ImageCarousel />
+            </main>
         </div>
     );
 };
