@@ -9,24 +9,28 @@ const SocialLinks = () => {
             <Link
                 href="/"
                 className="rounded-full bg-white/5 p-3 backdrop-blur-2xl duration-300 hover:bg-purple-500/30"
+                title="Github"
             >
                 <BsGithub size={20} />
             </Link>
             <Link
                 href="/"
                 className="rounded-full bg-white/5 p-3 backdrop-blur-2xl duration-300 hover:bg-blue-700/30"
+                title="LinkedIn"
             >
                 <BsLinkedin size={20} />
             </Link>
             <Link
                 href="/"
                 className="rounded-full bg-white/5 p-3 backdrop-blur-2xl duration-300 hover:bg-blue-400/30"
+                title="Twitter"
             >
                 <BsTwitter size={20} />
             </Link>
             <Link
                 href="/"
                 className="rounded-full bg-white/5 p-3 backdrop-blur-2xl duration-300 hover:bg-yellow-500/30"
+                title="LeetCode"
             >
                 <SiLeetcode size={20} />
             </Link>
