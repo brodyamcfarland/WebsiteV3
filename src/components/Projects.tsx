@@ -3,68 +3,82 @@ import Image from "next/image";
 
 const Projects = () => {
     return (
-        <div className="mx-5 mt-10 flex overflow-x-scroll scrollbar-thin scrollbar-track-white/10 scrollbar-thumb-white/50 max-w-3xl flex-col items-center border-t border-gray-600/75 bg-gradient-to-t from-blue-500/10 to-transparent p-10 pl-56 pb-5 text-center md:mx-auto">
-            <div className="flex items-center gap-5">
-                <div className="flex flex-col border border-gray-600/50 shadow-md pb-4 bg-gradient-to-t from-[#0f0f0f] to-purple-600/50 rounded-md">
-                    <Image
-                        src="/REACT.png"
-                        className="h-full w-full border-b object-contain border-gray-500/50"
-                        width={1000}
-                        height={1000}
-                        alt="Project 1 Image"
-                        priority={true}
-                    />
-                    <h3 className="tracking-widest pt-2">Coin Camp</h3>
-                    <p className="text-xs text-left px-3 text-gray-400 pt-2 pb-4">Crowdfunding Website built with NextJS, Typescript, Tailwind, Thirdweb, powered by Polygon (MATIC).</p>
-                    <div className="flex items-center justify-center gap-20 px-5">
-                        <button className="rounded-lg border px-4 py-2 border-gray-600/50 backdrop-blur-xl bg-white/20 opacity-75 hover:opacity-100 duration-300">
-                            Code
-                        </button>
-                        <button className="rounded-lg border px-4 py-2 border-gray-600/50 backdrop-blur-xl bg-white/40 opacity-75 hover:opacity-100 duration-300">
-                            Demo
-                        </button>
+        <div>
+            <h1 className="z-30 mt-20 text-center text-xl uppercase tracking-widest">
+                PROJECTS
+            </h1>
+            <div className="mx-5 mt-2 flex max-w-3xl flex-col items-center overflow-x-scroll border-t border-gray-600/75 bg-gradient-to-t from-blue-500/10 to-transparent p-10 pb-5 text-center shadow-inner scrollbar-thin scrollbar-track-white/10 scrollbar-thumb-white/50 md:mx-auto">
+                <div className="flex items-center gap-5 pl-[32rem] md:pl-[10rem] lg:pl-[5rem]">
+                    <div className="flex flex-col rounded-md border border-gray-600/50 bg-gradient-to-t from-[#0f0f0f] to-purple-600/50 pb-4 shadow-md">
+                        <Image
+                            src="/REACT.png"
+                            className="h-full w-full border-b border-gray-500/50 object-contain"
+                            width={1000}
+                            height={1000}
+                            alt="Project 1 Image"
+                            priority={true}
+                        />
+                        <h3 className="pt-2 tracking-widest">Coin Camp</h3>
+                        <p className="px-3 pt-2 pb-4 text-left text-xs text-gray-400">
+                            Crowdfunding Website built with NextJS, Typescript,
+                            Tailwind, Thirdweb, powered by Polygon (MATIC).
+                        </p>
+                        <div className="flex items-center justify-center gap-20 px-5">
+                            <button className="rounded-lg border border-gray-600/50 bg-black px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-black/10">
+                                Code
+                            </button>
+                            <button className="rounded-lg border border-gray-600/50 bg-gray-700 px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-gray-500">
+                                Demo
+                            </button>
+                        </div>
                     </div>
-                </div>
 
-                <div className="flex flex-col border border-gray-600/50 shadow-md pb-4 bg-gradient-to-t from-[#0f0f0f] to-red-600/50 rounded-md">
-                    <Image
-                        src="/REACT.png"
-                        className="h-full w-full border-b border-gray-500/50 object-contain"
-                        width={1000}
-                        height={1000}
-                        alt="Project 1 Image"
-                        priority={true}
-                    />
-                    <h3 className="tracking-widest pt-2">Coin Camp</h3>
-                    <p className="text-xs text-left px-3 text-gray-400 pt-2 pb-4">Crowdfunding Website built with NextJS, Typescript, Tailwind, Thirdweb, powered by Polygon (MATIC).</p>
-                    <div className="flex items-center justify-center gap-20 px-5">
-                    <button className="rounded-lg border px-4 py-2 border-gray-600/50 backdrop-blur-xl bg-white/20 opacity-75 hover:opacity-100 duration-300">
-                            Code
-                        </button>
-                        <button className="rounded-lg border px-4 py-2 border-gray-600/50 backdrop-blur-xl bg-white/40 opacity-75 hover:opacity-100 duration-300">
-                            Demo
-                        </button>
+                    <div className="flex flex-col rounded-md border border-gray-600/50 bg-gradient-to-t from-[#0f0f0f] to-red-600/50 pb-4 shadow-md">
+                        <Image
+                            src="/REACT.png"
+                            className="h-full w-full border-b border-gray-500/50 object-contain"
+                            width={1000}
+                            height={1000}
+                            alt="Project 1 Image"
+                            priority={true}
+                        />
+                        <h3 className="pt-2 tracking-widest">Coin Camp</h3>
+                        <p className="px-3 pt-2 pb-4 text-left text-xs text-gray-400">
+                            Crowdfunding Website built with NextJS, Typescript,
+                            Tailwind, Thirdweb, powered by Polygon (MATIC).
+                        </p>
+                        <div className="flex items-center justify-center gap-20 px-5">
+                            <button className="rounded-lg border border-gray-600/50 bg-black px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-black/10">
+                                Code
+                            </button>
+                            <button className="rounded-lg border border-gray-600/50 bg-gray-700 px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-gray-500">
+                                Demo
+                            </button>
+                        </div>
                     </div>
-                </div>
 
-                <div className="flex flex-col border border-gray-600/50 shadow-md pb-4 bg-gradient-to-t from-[#0f0f0f] to-yellow-600/50 rounded-md">
-                    <Image
-                        src="/REACT.png"
-                        className="h-full w-full border-b object-contain border-gray-500/50"
-                        width={1000}
-                        height={1000}
-                        alt="Project 1 Image"
-                        priority={true}
-                    />
-                    <h3 className="tracking-widest pt-2">Coin Camp</h3>
-                    <p className="text-xs text-left px-3 text-gray-400 pt-2 pb-4">Crowdfunding Website built with NextJS, Typescript, Tailwind, Thirdweb, powered by Polygon (MATIC).</p>
-                    <div className="flex items-center justify-center gap-20 px-5">
-                    <button className="rounded-lg border px-4 py-2 border-gray-600/50 backdrop-blur-xl bg-white/20 opacity-75 hover:opacity-100 duration-300">
-                            Code
-                        </button>
-                        <button className="rounded-lg border px-4 py-2 border-gray-600/50 backdrop-blur-xl bg-white/40 opacity-75 hover:opacity-100 duration-300">
-                            Demo
-                        </button>
+                    <div className="flex flex-col rounded-md border border-gray-600/50 bg-gradient-to-t from-[#0f0f0f] to-yellow-600/50 pb-4 shadow-md">
+                        <Image
+                            src="/REACT.png"
+                            className="h-full w-full border-b border-gray-500/50 object-contain"
+                            width={1000}
+                            height={1000}
+                            alt="Project 1 Image"
+                            priority={true}
+                        />
+                        <h3 className="pt-2 tracking-widest">Coin Camp</h3>
+                        <p className="px-3 pt-2 pb-4 text-left text-xs text-gray-400">
+                            Crowdfunding Website built with NextJS, Typescript,
+                            Tailwind, Thirdweb, powered by Polygon (MATIC).
+                        </p>
+                        <div className="flex items-center justify-center gap-20 px-5">
+                            <button className="rounded-lg border border-gray-600/50 bg-black px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-black/10">
+                                Code
+                            </button>
+                            <button className="rounded-lg border border-gray-600/50 bg-gray-700 px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-gray-500">
+                                Demo
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

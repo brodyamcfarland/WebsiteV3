@@ -17,7 +17,7 @@ const Hero = () => {
             <div className="z-20 my-7 h-52 w-52 rounded-full bg-gray-900 md:h-64 md:w-64">
                 <Image
                     src="/REACT.png"
-                    className="h-auto w-auto object-contain"
+                    className="h-full w-full object-contain"
                     width={1000}
                     height={1000}
                     alt="Hero Image"
@@ -26,7 +26,7 @@ const Hero = () => {
             </div>
 
             <p className="text-md z-30 tracking-wider text-gray-200">
-                Building mordern web experiences and applications with modern
+                Building modern web experiences and applications with modern
                 tools.
             </p>
         </div>

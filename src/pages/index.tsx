@@ -5,6 +5,7 @@ import SocialLinks from "../components/SocialLinks";
 import Hero from "../components/Hero";
 import ImageCarousel from "../components/ImageCarousel";
 import Projects from "../components/Projects";
+import Contact from "../components/Contact";
 
 const Home: NextPage = () => {
     return (
@@ -19,6 +20,7 @@ const Home: NextPage = () => {
                 <Hero />
                 <ImageCarousel />
                 <Projects />
+                <Contact />
             </main>
         </div>
     );
