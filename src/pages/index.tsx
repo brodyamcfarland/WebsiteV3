@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import SocialLinks from "../components/SocialLinks";
 import Hero from "../components/Hero";
 import ImageCarousel from "../components/ImageCarousel";
+import Projects from "../components/Projects";
 
 const Home: NextPage = () => {
     return (
@@ -14,9 +15,10 @@ const Home: NextPage = () => {
             </Head>
             <Navbar />
             <SocialLinks />
-            <main>
+            <main className="pb-20">
                 <Hero />
                 <ImageCarousel />
+                <Projects />
             </main>
         </div>
     );
