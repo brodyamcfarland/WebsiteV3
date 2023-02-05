@@ -16,8 +16,8 @@ const Hero = () => {
             <div className="absolute top-64 left-[51%] z-0 h-36 w-36 animate-pulse-slow border bg-purple-900 mix-blend-screen blur-3xl" />
             <div className="z-20 my-7 h-52 w-52 rounded-full bg-gray-900 md:h-64 md:w-64">
                 <Image
-                    src="/REACT.png"
-                    className="h-full w-full object-contain"
+                    src="/MeteorPic.png"
+                    className="h-full w-full object-cover border-[1px] rounded-full"
                     width={1000}
                     height={1000}
                     alt="Hero Image"
