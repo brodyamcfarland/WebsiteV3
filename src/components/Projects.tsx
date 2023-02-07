@@ -98,7 +98,7 @@ const Projects = () => {
                                 Code
                             </Link>
                             <Link
-                                href="https://coin-camp-jade.vercel.app/"
+                                href="https://shipped.vercel.app/"
                                 target="_blank"
                                 className="rounded-lg border border-gray-600/50 bg-gray-700 px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-gray-500"
                             >
