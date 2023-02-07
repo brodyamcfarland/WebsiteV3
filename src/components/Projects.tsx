@@ -48,7 +48,7 @@ const Projects = () => {
                             className="h-80 w-full rounded-tr-md  rounded-tl-md border-b border-gray-500/50 object-cover"
                             width={1000}
                             height={1000}
-                            alt="Project 1 Image"
+                            alt="Project 2 Image"
                             priority={true}
                         />
                         <h3 className="pt-2 tracking-widest">Connected</h3>
@@ -80,7 +80,7 @@ const Projects = () => {
                             className="h-80 w-full rounded-tr-md  rounded-tl-md border-b border-gray-500/50 object-cover"
                             width={1000}
                             height={1000}
-                            alt="Project 1 Image"
+                            alt="Project 3 Image"
                             priority={true}
                         />
                         <h3 className="pt-2 tracking-widest">Shipped</h3>
