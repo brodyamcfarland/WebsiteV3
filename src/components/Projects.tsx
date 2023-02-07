@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const Projects = () => {
     return (
@@ -11,10 +12,10 @@ const Projects = () => {
                 <div className="flex items-center gap-5 pl-[32rem] md:pl-[10rem] lg:pl-[5rem]">
                     <div className="flex flex-col rounded-md border border-gray-600/50 bg-gradient-to-t from-[#0f0f0f] to-purple-600/50 pb-4 shadow-md">
                         <Image
-                            src="/REACT.png"
-                            className="h-full w-full border-b border-gray-500/50 object-contain"
-                            width={1000}
-                            height={1000}
+                            src="/CoinCamp.png"
+                            className="h-80 w-full rounded-tr-md  rounded-tl-md border-b border-gray-500/50 object-fill"
+                            width={10000}
+                            height={10000}
                             alt="Project 1 Image"
                             priority={true}
                         />
@@ -24,60 +25,85 @@ const Projects = () => {
                             Tailwind, Thirdweb, powered by Polygon (MATIC).
                         </p>
                         <div className="flex items-center justify-center gap-20 px-5">
-                            <button className="rounded-lg border border-gray-600/50 bg-black px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-black/10">
+                            <Link
+                                href="https://github.com/brodyamcfarland/CoinCamp"
+                                target="_blank"
+                                className="rounded-lg border border-gray-600/50 bg-black px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-black/10"
+                            >
                                 Code
-                            </button>
-                            <button className="rounded-lg border border-gray-600/50 bg-gray-700 px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-gray-500">
+                            </Link>
+                            <Link
+                                href="https://coin-camp-jade.vercel.app/"
+                                target="_blank"
+                                className="rounded-lg border border-gray-600/50 bg-gray-700 px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-gray-500"
+                            >
                                 Demo
-                            </button>
+                            </Link>
                         </div>
                     </div>
 
                     <div className="flex flex-col rounded-md border border-gray-600/50 bg-gradient-to-t from-[#0f0f0f] to-red-600/50 pb-4 shadow-md">
                         <Image
-                            src="/REACT.png"
-                            className="h-full w-full border-b border-gray-500/50 object-contain"
+                            src="/Soulbound.png"
+                            className="h-80 w-full rounded-tr-md  rounded-tl-md border-b border-gray-500/50 object-cover"
                             width={1000}
                             height={1000}
                             alt="Project 1 Image"
                             priority={true}
                         />
-                        <h3 className="pt-2 tracking-widest">Coin Camp</h3>
+                        <h3 className="pt-2 tracking-widest">Connected</h3>
                         <p className="px-3 pt-2 pb-4 text-left text-xs text-gray-400">
-                            Crowdfunding Website built with NextJS, Typescript,
-                            Tailwind, Thirdweb, powered by Polygon (MATIC).
+                            Social Media website built with React, Tailwind,
+                            Firebase, Ethers JS, Solidity, and Typescript.
                         </p>
                         <div className="flex items-center justify-center gap-20 px-5">
-                            <button className="rounded-lg border border-gray-600/50 bg-black px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-black/10">
+                            <Link
+                                href="https://github.com/brodyamcfarland/c0nn3ct3d"
+                                target="_blank"
+                                className="rounded-lg border border-gray-600/50 bg-black px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-black/10"
+                            >
                                 Code
-                            </button>
-                            <button className="rounded-lg border border-gray-600/50 bg-gray-700 px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-gray-500">
+                            </Link>
+                            <Link
+                                href="https://brodyamcfarland.github.io/c0nn3ct3d/"
+                                target="_blank"
+                                className="rounded-lg border border-gray-600/50 bg-gray-700 px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-gray-500"
+                            >
                                 Demo
-                            </button>
+                            </Link>
                         </div>
                     </div>
 
                     <div className="flex flex-col rounded-md border border-gray-600/50 bg-gradient-to-t from-[#0f0f0f] to-yellow-600/50 pb-4 shadow-md">
                         <Image
-                            src="/REACT.png"
-                            className="h-full w-full border-b border-gray-500/50 object-contain"
+                            src="/Shipped.png"
+                            className="h-80 w-full rounded-tr-md  rounded-tl-md border-b border-gray-500/50 object-cover"
                             width={1000}
                             height={1000}
                             alt="Project 1 Image"
                             priority={true}
                         />
-                        <h3 className="pt-2 tracking-widest">Coin Camp</h3>
+                        <h3 className="pt-2 tracking-widest">Shipped</h3>
                         <p className="px-3 pt-2 pb-4 text-left text-xs text-gray-400">
-                            Crowdfunding Website built with NextJS, Typescript,
-                            Tailwind, Thirdweb, powered by Polygon (MATIC).
+                            Online Shopping website built with NextJS,
+                            Typescript, Tailwind, Fakestore API, Next Auth,
+                            Stripe, React Redux, and Firebase.
                         </p>
                         <div className="flex items-center justify-center gap-20 px-5">
-                            <button className="rounded-lg border border-gray-600/50 bg-black px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-black/10">
+                            <Link
+                                href="https://github.com/brodyamcfarland/shipped"
+                                target="_blank"
+                                className="rounded-lg border border-gray-600/50 bg-black px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-black/10"
+                            >
                                 Code
-                            </button>
-                            <button className="rounded-lg border border-gray-600/50 bg-gray-700 px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-gray-500">
+                            </Link>
+                            <Link
+                                href="https://coin-camp-jade.vercel.app/"
+                                target="_blank"
+                                className="rounded-lg border border-gray-600/50 bg-gray-700 px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-gray-500"
+                            >
                                 Demo
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
