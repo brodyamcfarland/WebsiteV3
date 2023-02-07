@@ -32,7 +32,7 @@ const Contact = () => {
     };
 
     return (
-        <div className="mx-4 pb-20" id="contact">
+        <div className="mx-4 pb-20 pt-5" id="contact">
             <h1 className="z-30 mt-20 select-none text-center text-xl uppercase tracking-widest">
                 CONTACT
             </h1>
