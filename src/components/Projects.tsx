@@ -4,8 +4,8 @@ import Link from "next/link";
 
 const Projects = () => {
     return (
-        <div>
-            <h1 className="z-30 mt-20 text-center text-xl uppercase tracking-widest">
+        <div id="projects" className="pt-5">
+            <h1 className="z-30 mt-20 select-none text-center text-xl uppercase tracking-widest">
                 PROJECTS
             </h1>
             <div className="mx-5 mt-2 flex max-w-3xl flex-col items-center overflow-x-scroll border-t border-gray-600/75 bg-gradient-to-t from-blue-500/10 to-transparent p-10 pb-5 text-center shadow-inner scrollbar-thin scrollbar-track-white/10 scrollbar-thumb-white/50 md:mx-auto">

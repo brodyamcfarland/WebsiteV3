@@ -3,7 +3,10 @@ import React from "react";
 
 const Hero = () => {
     return (
-        <div className="relative mx-auto mt-10 flex max-w-6xl flex-col items-center p-10 pb-5 text-center">
+        <div
+            className="relative mx-auto mt-10 flex max-w-6xl flex-col items-center p-10 pb-5 text-center"
+            id="#"
+        >
             <h1 className="z-30 text-xl font-semibold uppercase tracking-widest">
                 Brody McFarland
             </h1>

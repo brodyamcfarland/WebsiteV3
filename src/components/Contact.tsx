@@ -32,8 +32,8 @@ const Contact = () => {
     };
 
     return (
-        <div className="mx-4 pb-20">
-            <h1 className="z-30 mt-20 text-center text-xl uppercase tracking-widest">
+        <div className="mx-4 pb-20" id="contact">
+            <h1 className="z-30 mt-20 select-none text-center text-xl uppercase tracking-widest">
                 CONTACT
             </h1>
             <div className="mt-2 flex max-w-3xl flex-col items-center border-t border-gray-600/75 bg-gradient-to-t from-red-500/10 to-transparent p-10 pb-5 text-center shadow-inner md:mx-auto">
