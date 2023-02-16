@@ -3,6 +3,7 @@ import { AiFillPhone, AiOutlineMail } from "react-icons/ai";
 import { BiMap } from "react-icons/bi";
 import emailjs from "@emailjs/browser";
 import toast from "react-hot-toast";
+import { motion } from 'framer-motion';
 
 const Contact = () => {
     const form = useRef<any>();
@@ -37,7 +38,10 @@ const Contact = () => {
                 CONTACT
             </h1>
             <div className="mt-2 flex max-w-3xl flex-col items-center border-t border-gray-600/75 bg-gradient-to-t from-red-500/10 to-transparent p-10 pb-5 text-center shadow-inner md:mx-auto">
-                <div className="mt-18 flex flex-col space-y-10 md:mt-0">
+                <motion.div
+                    initial={{ x: -300 }}
+                    whileInView={{ x: 0 }}
+                    transition={{ type: "spring", stiffness: 75 }} className="mt-18 flex flex-col space-y-10 md:mt-0">
                     <div className="space-y-3 md:space-y-3">
                         <div className="flex items-center justify-center space-x-5">
                             <AiFillPhone className="h-7 w-7 animate-pulse text-emerald-600" />
@@ -93,7 +97,7 @@ const Contact = () => {
                             Submit
                         </button>
                     </form>
-                </div>
+                </motion.div>
             </div>
         </div>
     );
