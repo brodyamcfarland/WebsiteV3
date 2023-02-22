@@ -15,7 +15,7 @@ const Projects = () => {
                          className="flex flex-col rounded-md border border-gray-600/50 bg-gradient-to-t from-[#0f0f0f] to-blue-600/50 pb-4 shadow-md"
                     >
                          <Image
-                              src="/Get.PNG"
+                              src="/GET.PNG"
                               className="h-80 w-full rounded-tr-md  rounded-tl-md border-b border-gray-500/50 object-fill"
                               width={10000}
                               height={10000}
