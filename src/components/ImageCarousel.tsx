@@ -1,17 +1,9 @@
-import { motion } from "framer-motion";
 import Image from "next/image";
 
 const ImageCarousel = () => {
      return (
           <div className="mx-auto flex max-w-[20rem] gap-6 overflow-x-auto border border-gray-600/50 bg-gradient-to-t from-white/10 to-transparent px-4 py-4 scrollbar-thin scrollbar-track-white/10 scrollbar-thumb-white/50 md:max-w-[30rem] lg:max-w-[38rem] xl:max-w-[45rem]">
-               <motion.div
-                    initial={{ x: 400 }}
-                    whileInView={{ x: 0 }}
-                    transition={{
-                         duration: 1.2,
-                    }}
-                    className="flex gap-5"
-               >
+               <div className="flex gap-5">
                     <Image
                          src="/NEXTJS.png"
                          width={60}
@@ -156,7 +148,7 @@ const ImageCarousel = () => {
                          className="h-auto w-auto cursor-pointer object-contain opacity-75 duration-300 hover:opacity-100"
                          title="HARDHAT"
                     />
-               </motion.div>
+               </div>
           </div>
      );
 };

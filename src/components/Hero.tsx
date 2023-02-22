@@ -58,7 +58,7 @@ const Hero = () => {
                     />
                </motion.div>
 
-               <p className="text-md z-30 tracking-wider text-gray-400 md:pt-20">
+               <p className="md:text-md z-30 text-sm tracking-wider text-gray-400 md:pt-20">
                     Building modern web experiences and applications with modern
                     tools.
                </p>
