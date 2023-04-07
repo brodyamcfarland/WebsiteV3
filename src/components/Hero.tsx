@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
+import ThreeFiber from "./ThreeFiber";
 
 const Hero = () => {
      return (
@@ -93,8 +94,8 @@ const Hero = () => {
                          priority={true}
                     />
                </motion.div>
-
-               <p className="md:text-md z-30 text-sm tracking-wider text-gray-400 md:pt-20">
+               <ThreeFiber />
+               <p className="md:text-md z-30 text-sm tracking-wider text-gray-400 md:pt-16">
                     Building modern web experiences and applications with modern
                     tools.
                </p>
