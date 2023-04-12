@@ -53,6 +53,14 @@ const ImageCarousel = () => {
                          title="TAILWIND CSS"
                     />
                     <Image
+                         src="/THREEJS.png"
+                         width={60}
+                         height={60}
+                         alt="THREE Js Image"
+                         className="h-auto w-auto cursor-pointer object-contain opacity-75 duration-300 hover:opacity-100"
+                         title="THREE.js"
+                    />
+                    <Image
                          src="/GITLOGO.png"
                          width={60}
                          height={60}
