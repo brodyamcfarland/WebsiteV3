@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const ImageCarousel = () => {
      return (
-          <div className="mx-auto flex max-w-[20rem] gap-6 overflow-x-auto border border-gray-600/50 bg-gradient-to-t from-white/10 to-transparent px-4 py-4 scrollbar-thin scrollbar-track-white/10 scrollbar-thumb-white/50 md:max-w-[30rem] lg:max-w-[38rem] xl:max-w-[45rem]">
+          <div className="z-10 mx-auto flex max-w-[20rem] gap-6 overflow-x-auto border border-gray-600/50 bg-gradient-to-t from-white/10 to-transparent px-4 py-4 scrollbar-thin scrollbar-track-white/10 scrollbar-thumb-white/50 md:max-w-[30rem] lg:max-w-[38rem] xl:max-w-[45rem]">
                <div className="flex gap-5">
                     <Image
                          src="/NEXTJS.png"

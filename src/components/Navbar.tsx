@@ -22,7 +22,7 @@ const Navbar = () => {
                     href="#home"
                     className={`${
                          currentNav === "#home" ? "bg-white/20" : ""
-                    } rounded-full bg-[#0f0f0f] p-3 duration-300 hover:cursor-pointer hover:bg-white/10`}
+                    } rounded-full  border border-white/50 bg-[#0f0f0f] p-3 duration-300 hover:cursor-pointer hover:bg-white/10`}
                     title="Home"
                     onClick={() => {
                          setCurrentNav("#home");
@@ -34,7 +34,7 @@ const Navbar = () => {
                     href="#projects"
                     className={`${
                          currentNav === "#projects" ? "bg-white/20" : ""
-                    } rounded-full bg-[#0f0f0f] p-3 duration-300 hover:cursor-pointer hover:bg-white/10`}
+                    } rounded-full border border-white/50 bg-[#0f0f0f] p-3 duration-300 hover:cursor-pointer hover:bg-white/10`}
                     title="Projects"
                     onClick={() => setCurrentNav("#projects")}
                >
@@ -45,7 +45,7 @@ const Navbar = () => {
                     href="#contact"
                     className={`${
                          currentNav === "#contact" ? "bg-white/20" : ""
-                    } rounded-full bg-[#0f0f0f] p-3 duration-300 hover:cursor-pointer hover:bg-white/10`}
+                    } rounded-full border border-white/50 bg-[#0f0f0f] p-3 duration-300 hover:cursor-pointer hover:bg-white/10`}
                     title="Contact"
                     onClick={() => setCurrentNav("#contact")}
                >

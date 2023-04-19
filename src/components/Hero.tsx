@@ -4,7 +4,7 @@ import ThreeFiber from "./ThreeFiber";
 
 const Hero = () => {
      return (
-          <div className="relative mx-auto mt-10 flex max-w-6xl flex-col items-center  p-10 pb-5 text-center md:pt-20">
+          <div className="relative mx-auto mt-10 flex max-w-6xl select-none flex-col  items-center p-10 pb-5 text-center md:pt-20">
                <h1 className="z-30 text-2xl font-semibold uppercase tracking-widest">
                     Brody McFarland
                </h1>
