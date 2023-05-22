@@ -1,8 +1,51 @@
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 
 const ImageCarousel = () => {
+     const containerRef = useRef<HTMLDivElement>(null);
+     let isMouseDown = false;
+     let startX: number;
+     let scrollLeft: number;
+
+     useEffect(() => {
+          const container = containerRef.current;
+
+          const handleMouseDown = (e: MouseEvent) => {
+               isMouseDown = true;
+               startX = e.pageX - container!.offsetLeft;
+               scrollLeft = container!.scrollLeft;
+          };
+
+          const handleMouseUp = () => {
+               isMouseDown = false;
+          };
+
+          const handleMouseMove = (e: MouseEvent) => {
+               if (!isMouseDown) return;
+               e.preventDefault();
+               const x = e.pageX - container!.offsetLeft;
+               const walk = (x - startX) * 3;
+               container!.scrollLeft = scrollLeft - walk;
+          };
+
+          container?.addEventListener("mousedown", handleMouseDown);
+          container?.addEventListener("mouseup", handleMouseUp);
+          container?.addEventListener("mouseleave", handleMouseUp);
+          container?.addEventListener("mousemove", handleMouseMove);
+
+          return () => {
+               container?.removeEventListener("mousedown", handleMouseDown);
+               container?.removeEventListener("mouseup", handleMouseUp);
+               container?.removeEventListener("mouseleave", handleMouseUp);
+               container?.removeEventListener("mousemove", handleMouseMove);
+          };
+     }, []);
+
      return (
-          <div className="z-10 mx-auto flex max-w-[20rem] gap-6 overflow-x-auto border border-gray-600/50 bg-gradient-to-t from-white/10 to-transparent px-4 py-4 scrollbar-thin scrollbar-track-white/10 scrollbar-thumb-white/50 md:max-w-[30rem] lg:max-w-[38rem] xl:max-w-[45rem]">
+          <div
+               ref={containerRef}
+               className="z-10 mx-auto flex max-w-[20rem] gap-6 overflow-x-auto border border-gray-600/50 bg-gradient-to-t from-white/10 to-transparent px-4 py-4 scrollbar-thin scrollbar-track-white/10 scrollbar-thumb-white/50 md:max-w-[30rem] lg:max-w-[38rem] xl:max-w-[45rem]"
+          >
                <div className="flex gap-5">
                     <Image
                          src="/NEXTJS.png"

@@ -1,14 +1,57 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
 
 const Projects = () => {
+     const containerRef = useRef<HTMLDivElement>(null);
+     let isMouseDown = false;
+     let startX: number;
+     let scrollLeft: number;
+
+     useEffect(() => {
+          const container = containerRef.current;
+
+          const handleMouseDown = (e: MouseEvent) => {
+               isMouseDown = true;
+               startX = e.pageX - container!.offsetLeft;
+               scrollLeft = container!.scrollLeft;
+          };
+
+          const handleMouseUp = () => {
+               isMouseDown = false;
+          };
+
+          const handleMouseMove = (e: MouseEvent) => {
+               if (!isMouseDown) return;
+               e.preventDefault();
+               const x = e.pageX - container!.offsetLeft;
+               const walk = (x - startX) * 3;
+               container!.scrollLeft = scrollLeft - walk;
+          };
+
+          container?.addEventListener("mousedown", handleMouseDown);
+          container?.addEventListener("mouseup", handleMouseUp);
+          container?.addEventListener("mouseleave", handleMouseUp);
+          container?.addEventListener("mousemove", handleMouseMove);
+
+          return () => {
+               container?.removeEventListener("mousedown", handleMouseDown);
+               container?.removeEventListener("mouseup", handleMouseUp);
+               container?.removeEventListener("mouseleave", handleMouseUp);
+               container?.removeEventListener("mousemove", handleMouseMove);
+          };
+     }, []);
+
      return (
           <div className="scale-90 pt-5 md:scale-100">
                <h1 className="z-30 mt-5 select-none text-center text-xl uppercase tracking-widest md:mt-20">
                     PROJECTS
                </h1>
-               <div className="mt-2 flex max-w-3xl items-center gap-5 overflow-x-scroll scroll-smooth border-t border-gray-600/75 bg-gradient-to-t from-blue-500/10 to-transparent p-10 px-[15rem] pb-5 text-center shadow-inner scrollbar-thin scrollbar-track-white/10 scrollbar-thumb-white/50 md:mx-auto md:px-10">
+               <div
+                    ref={containerRef}
+                    className="scroll-behavior-smooth mt-2 flex max-w-3xl items-center gap-5 overflow-x-scroll border-t border-gray-600/75 bg-gradient-to-t from-blue-500/10 to-transparent p-10 px-[15rem] pb-5 text-center shadow-inner scrollbar-thin scrollbar-track-white/10 scrollbar-thumb-white/50 hover:cursor-pointer md:mx-auto md:px-10"
+               >
                     <motion.div
                          whileHover={{ scale: 1.025 }}
                          whileTap={{ scale: 0.99 }}
