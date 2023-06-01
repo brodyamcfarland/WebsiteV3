@@ -55,6 +55,42 @@ const Projects = () => {
                     <motion.div
                          whileHover={{ scale: 1.025 }}
                          whileTap={{ scale: 0.99 }}
+                         className="flex flex-col rounded-md border border-gray-600/50 bg-gradient-to-t from-[#0f0f0f] to-red-600/50 pb-4 shadow-md"
+                    >
+                         <Image
+                              src="/Siphon.png"
+                              className="h-80 w-full rounded-tr-md  rounded-tl-md border-b border-gray-500/50 object-fill"
+                              width={1000}
+                              height={1000}
+                              alt="Project 0 Image"
+                              priority={true}
+                         />
+                         <h3 className="pt-2 tracking-widest">Siphon</h3>
+                         <p className="px-3 pt-2 pb-4 text-left text-xs text-gray-400">
+                              HTML to JSON web scraping tool for easy text
+                              extraction. Built with NextJS, Cheerio,
+                              Typescript, and Tailwind.
+                         </p>
+                         <div className="flex items-center justify-center gap-20 px-5">
+                              <Link
+                                   href="https://github.com/brodyamcfarland/Siphon"
+                                   target="_blank"
+                                   className="rounded-lg border border-gray-600/50 bg-black px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-black/10"
+                              >
+                                   Code
+                              </Link>
+                              <Link
+                                   href="https://siphon-chi.vercel.app/"
+                                   target="_blank"
+                                   className="rounded-lg border border-gray-600/50 bg-gray-700 px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-gray-500"
+                              >
+                                   Demo
+                              </Link>
+                         </div>
+                    </motion.div>
+                    <motion.div
+                         whileHover={{ scale: 1.025 }}
+                         whileTap={{ scale: 0.99 }}
                          className="flex flex-col rounded-md border border-gray-600/50 bg-gradient-to-t from-[#0f0f0f] to-yellow-600/50 pb-4 shadow-md"
                     >
                          <Image
