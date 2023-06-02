@@ -18,7 +18,7 @@ const Hero = () => {
                     transition={{
                          duration: 1.2,
                     }}
-                    className="absolute top-24 right-[50%] z-0 hidden h-40 w-40 animate-pulse-slow bg-yellow-900 mix-blend-screen blur-3xl md:top-48 md:block"
+                    className="absolute top-24 right-[50%] z-0 hidden h-40 w-40 animate-pulse-slow bg-stone-900 mix-blend-screen blur-3xl md:top-48 md:block"
                />
                <motion.div
                     initial={{ y: -400, x: 400 }}
@@ -26,7 +26,7 @@ const Hero = () => {
                     transition={{
                          duration: 1.2,
                     }}
-                    className="absolute top-24 left-[50%] z-0 hidden h-40 w-40 animate-pulse-slow bg-red-900 mix-blend-screen blur-3xl md:top-48 md:block"
+                    className="absolute top-24 left-[50%] z-0 hidden h-40 w-40 animate-pulse-slow bg-gray-900 mix-blend-screen blur-3xl md:top-48 md:block"
                />
                <motion.div
                     initial={{ y: 400, x: -400 }}
@@ -34,7 +34,7 @@ const Hero = () => {
                     transition={{
                          duration: 1.2,
                     }}
-                    className="absolute top-56 right-[50%] z-0 hidden h-40 w-40 animate-pulse-slow bg-blue-900 mix-blend-screen blur-3xl md:top-80 md:block"
+                    className="absolute top-56 right-[50%] z-0 hidden h-40 w-40 animate-pulse-slow bg-gray-900 mix-blend-screen blur-3xl md:top-80 md:block"
                />
                <motion.div
                     initial={{ y: 400, x: 400 }}
@@ -42,7 +42,7 @@ const Hero = () => {
                     transition={{
                          duration: 1.2,
                     }}
-                    className="absolute top-56 left-[50%] z-0 hidden h-40 w-40 animate-pulse-slow bg-purple-900 mix-blend-screen blur-3xl md:top-80 md:block"
+                    className="absolute top-56 left-[50%] z-0 hidden h-40 w-40 animate-pulse-slow bg-gray-900 mix-blend-screen blur-3xl md:top-80 md:block"
                />
                {/* Mobile & Tablet Colored Circles */}
 
@@ -52,7 +52,7 @@ const Hero = () => {
                     transition={{
                          duration: 1.2,
                     }}
-                    className="absolute top-24 right-[50%] z-0 h-40 w-40 animate-pulse-slow bg-yellow-900 mix-blend-screen blur-3xl md:top-48"
+                    className="absolute top-24 right-[50%] z-0 h-40 w-40 animate-pulse-slow bg-gray-900 mix-blend-screen blur-3xl md:top-48"
                />
                <motion.div
                     initial={{ y: -200, x: 150 }}
@@ -60,7 +60,7 @@ const Hero = () => {
                     transition={{
                          duration: 1.2,
                     }}
-                    className="absolute top-24 left-[50%] z-0 h-40 w-40 animate-pulse-slow bg-red-900 mix-blend-screen blur-3xl md:top-48"
+                    className="absolute top-24 left-[50%] z-0 h-40 w-40 animate-pulse-slow bg-gray-900 mix-blend-screen blur-3xl md:top-48"
                />
                <motion.div
                     initial={{ y: 200, x: -150 }}
@@ -68,7 +68,7 @@ const Hero = () => {
                     transition={{
                          duration: 1.2,
                     }}
-                    className="absolute top-56 right-[50%] z-0 h-40 w-40 animate-pulse-slow bg-blue-900 mix-blend-screen blur-3xl md:top-80"
+                    className="absolute top-56 right-[50%] z-0 h-40 w-40 animate-pulse-slow bg-gray-900 mix-blend-screen blur-3xl md:top-80"
                />
                <motion.div
                     initial={{ y: 200, x: 150 }}
@@ -76,7 +76,7 @@ const Hero = () => {
                     transition={{
                          duration: 1.2,
                     }}
-                    className="absolute top-56 left-[50%] z-0 h-40 w-40 animate-pulse-slow bg-purple-900 mix-blend-screen blur-3xl md:top-80"
+                    className="absolute top-56 left-[50%] z-0 h-40 w-40 animate-pulse-slow bg-gray-900 mix-blend-screen blur-3xl md:top-80"
                />
                {/* Animated Image */}
                <motion.div
@@ -87,7 +87,7 @@ const Hero = () => {
                >
                     <Image
                          src="/MeteorPic.png"
-                         className="h-full w-full rounded-full object-cover opacity-80 shadow-md duration-1000 hover:-hue-rotate-180"
+                         className="h-full w-full rounded-full object-cover opacity-70 shadow-md duration-1000 hover:-hue-rotate-180"
                          width={1000}
                          height={1000}
                          alt="Hero Image"

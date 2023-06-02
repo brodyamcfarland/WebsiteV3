@@ -55,11 +55,11 @@ const Projects = () => {
                     <motion.div
                          whileHover={{ scale: 1.025 }}
                          whileTap={{ scale: 0.99 }}
-                         className="flex flex-col rounded-md border border-gray-600/50 bg-gradient-to-t from-[#0f0f0f] to-red-600/50 pb-4 shadow-md"
+                         className="flex flex-col rounded-md border border-gray-600/50 bg-[#111111] pb-4 shadow-md"
                     >
                          <Image
                               src="/Siphon.png"
-                              className="h-80 w-full rounded-tr-md  rounded-tl-md border-b border-gray-500/50 object-fill"
+                              className="h-80 rounded-tr-md  rounded-tl-md border-b border-gray-500/50 object-fill"
                               width={1000}
                               height={1000}
                               alt="Project 0 Image"
@@ -91,7 +91,7 @@ const Projects = () => {
                     <motion.div
                          whileHover={{ scale: 1.025 }}
                          whileTap={{ scale: 0.99 }}
-                         className="flex flex-col rounded-md border border-gray-600/50 bg-gradient-to-t from-[#0f0f0f] to-yellow-600/50 pb-4 shadow-md"
+                         className="flex flex-col rounded-md border border-gray-600/50 bg-[#111111] pb-4 shadow-md"
                     >
                          <Image
                               src="/threefiber.png"
@@ -129,7 +129,7 @@ const Projects = () => {
                     <motion.div
                          whileHover={{ scale: 1.025 }}
                          whileTap={{ scale: 0.99 }}
-                         className="flex flex-col rounded-md border border-gray-600/50 bg-gradient-to-t from-[#0f0f0f] to-blue-600/50 pb-4 shadow-md"
+                         className="flex flex-col rounded-md border border-gray-600/50 bg-[#111111] pb-4 shadow-md"
                     >
                          <Image
                               src="/GET.PNG"
@@ -166,7 +166,7 @@ const Projects = () => {
                     <motion.div
                          whileHover={{ scale: 1.025 }}
                          whileTap={{ scale: 0.99 }}
-                         className="flex flex-col rounded-md border border-gray-600/50 bg-gradient-to-t from-[#0f0f0f] to-purple-600/50 pb-4 shadow-md"
+                         className="flex flex-col rounded-md border border-gray-600/50 bg-[#111111] pb-4 shadow-md"
                     >
                          <Image
                               src="/CoinCamp.PNG"
@@ -202,7 +202,7 @@ const Projects = () => {
                     <motion.div
                          whileHover={{ scale: 1.025 }}
                          whileTap={{ scale: 0.99 }}
-                         className="flex flex-col rounded-md border border-gray-600/50 bg-gradient-to-t from-[#0f0f0f] to-yellow-600/50 pb-4 shadow-md"
+                         className="flex flex-col rounded-md border border-gray-600/50 bg-[#111111] pb-4 shadow-md"
                     >
                          <Image
                               src="/Shipped.PNG"
@@ -238,7 +238,7 @@ const Projects = () => {
                     <motion.div
                          whileHover={{ scale: 1.025 }}
                          whileTap={{ scale: 0.99 }}
-                         className="flex flex-col rounded-md border border-gray-600/50 bg-gradient-to-t from-[#0f0f0f] to-red-600/50 pb-4 shadow-md"
+                         className="flex flex-col rounded-md border border-gray-600/50 bg-[#111111] pb-4 shadow-md"
                     >
                          <Image
                               src="/Soulbound.PNG"
