@@ -5,7 +5,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
 @layer components {
-    .contactInput {
-        @apply rounded-md border-b border-[#242424] bg-slate-400/10 px-2 text-white placeholder-gray-600 outline-none transition-all focus:border-emerald-500/40 focus:text-emerald-200/40 hover:border-emerald-500/40 md:px-6 md:py-2 lg:py-2;
-    }
+  .contactInput {
+    @apply rounded-md border-b border-[#242424] bg-slate-400/10 px-2 text-white placeholder-gray-600 outline-none transition-all focus:border-emerald-500/40 focus:text-emerald-200/40 hover:border-emerald-500/40 md:px-6 md:py-2 lg:py-2;
+  }
+
+  .heroSkillImages {
+    @apply h-[30px] w-[30px] cursor-pointer rounded-full border border-[#FFFFFF50] bg-black object-contain opacity-80 duration-300 hover:border-white hover:opacity-100 md:h-[50px] md:w-[50px];
+    @apply hover:shadow-[0_0_15px_5px_rgba(255,255,255,0.6)];
+  }
 }
