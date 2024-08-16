@@ -13,7 +13,7 @@ import SkillRing from "../components/SkillRing";
 const Home: NextPage = () => {
   return (
     <>
-      <div className="relative flex h-[100vh] snap-y snap-mandatory flex-col overflow-y-scroll scroll-smooth bg-black font-main text-white overflow-x-hidden scrollbar-thin scrollbar-track-white/10 scrollbar-thumb-white/50">
+      <div className="relative flex h-[100vh] flex-col overflow-y-scroll scroll-smooth bg-black font-main text-white  scrollbar-thin scrollbar-track-white/10 scrollbar-thumb-white/50 md:snap-y md:snap-mandatory">
         <Head>
           <title>Brody McFarland</title>
           <link rel="icon" href="/favicon.ico" />
@@ -44,19 +44,19 @@ const Home: NextPage = () => {
           </Canvas>
           <section
             id="home"
-            className="flex h-screen shrink-0 snap-start flex-col items-center justify-center"
+            className="flex h-screen shrink-0 flex-col items-center justify-center md:snap-start"
           >
             <Hero />
           </section>
           <section
             id="projects"
-            className="flex h-screen shrink-0 snap-center flex-col items-center justify-center"
+            className="flex h-screen shrink-0 flex-col items-center justify-center md:snap-center"
           >
             <Projects />
           </section>
           <section
             id="contact"
-            className="flex h-screen shrink-0 snap-center flex-col items-center justify-center"
+            className="flex h-screen shrink-0 flex-col items-center justify-center md:snap-center"
           >
             <Contact />
           </section>

@@ -1,278 +1,231 @@
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
+import { BsArrowUpCircleFill, BsArrowDownCircleFill } from "react-icons/bs";
+
+const projectData = [
+  {
+    title: "Starscript",
+    description:
+      "Social Media website for screenwriters, actors, musicians, and collaborators. Available on ios and Android. Contains a post feed, reel system, real time messenger, commenting, Google OAuth, Video/Image Compression, and much more.",
+    imageSrc: "/starscript.png",
+    codeLink: "Not Available",
+    stack: [
+      "NextJS",
+      "React Native",
+      "Express",
+      "Mongo DB",
+      "JS",
+      "socket.io",
+      "Redux",
+      "Vanilla CSS",
+      "FFMPEG",
+      "sharp",
+    ],
+    demoLink: "https://www.starscript.com/",
+  },
+  {
+    title: "Breathe Ops",
+    description:
+      "Subscription-based Medical Office Software Suite and Online Directory. Allows you to log daily activity with automatic finance calculations and generate leads and referrals for your practice. Contains a custom map directory, and exportable financial dashboard.",
+    stack: [
+      "NextJS",
+      "React Native",
+      "Express",
+      "Mongo DB",
+      "JS",
+      "Redux",
+      "Vanilla CSS",
+    ],
+    imageSrc: "/breathe-ops.png",
+    codeLink: "Not Available",
+    demoLink: "https://www.breatheops.com/",
+  },
+  {
+    title: "3-D Portfolio",
+    description:
+      "3-D version of portfolio. Shoot the ball at objects by clicking on the ball to interact with the next room.",
+    imageSrc: "/threefiber.png",
+    stack: [
+      "NextJS",
+      "Tailwind",
+      "React Three Fiber",
+      "Typescript",
+      "Three.js",
+      "CannonJS",
+    ],
+    codeLink: "https://github.com/brodyamcfarland/3D-Website",
+    demoLink: "https://3d-website-indol.vercel.app/",
+  },
+  {
+    title: "GET",
+    description:
+      "E-Commerce Website, pretty much an amazon clone that uses only local storage instead of a database.",
+    imageSrc: "/GET.PNG",
+    stack: ["NextJS", "Tailwind", "Typescript", "Redux", "Firebase"],
+    codeLink: "https://github.com/brodyamcfarland/shopping-web-app",
+    demoLink: "https://shopping-sepia-seven.vercel.app/",
+  },
+  {
+    title: "Coin Camp",
+    description:
+      "Web3 Crowdfunding Website built on top of the Polygon Mumbai test network.",
+    imageSrc: "/CoinCamp.PNG",
+    stack: ["NextJS", "Typescript", "Tailwind", "Thirdweb"],
+    codeLink: "https://github.com/brodyamcfarland/CoinCamp",
+    demoLink: "https://coin-camp-jade.vercel.app/",
+  },
+  {
+    title: "Siphon",
+    description:
+      "HTML to JSON web scraping tool for easy text extraction. Built with NextJS, Cheerio, Typescript, and Tailwind.",
+    imageSrc: "/Siphon.png",
+    stack: ["NextJS", "Tailwind", "Cheerio", "Typescript"],
+    codeLink: "https://github.com/brodyamcfarland/Siphon",
+    demoLink: "https://siphon-chi.vercel.app/",
+  },
+  {
+    title: "Shipped",
+    description:
+      "Online Shopping website built with NextJS, Typescript, Tailwind, Fakestore API, Next Auth, Stripe, React Redux, and Firebase.",
+    imageSrc: "/Shipped.PNG",
+    stack: [
+      "NextJS",
+      "Typescript",
+      "Tailwind",
+      "Fakestore API",
+      "Next Auth",
+      "Stripe",
+      "React Redux",
+      "Firebase",
+    ],
+    codeLink: "https://github.com/brodyamcfarland/shipped",
+    demoLink: "https://shipped.vercel.app/",
+  },
+  {
+    title: "Connected",
+    description:
+      "Web3 Social Media Website. In order to login, you must mint a non-transferable NFT via the instructions. This new coin will now replace your login credentials, when the token is detected, you will be logged in.",
+    stack: [
+      "React",
+      "Typescript",
+      "Tailwind",
+      "Ethers JS",
+      "Solidity",
+      "Firebase",
+    ],
+    imageSrc: "/Soulbound.PNG",
+    codeLink: "https://github.com/brodyamcfarland/c0nn3ct3d",
+    demoLink: "https://brodyamcfarland.github.io/c0nn3ct3d/",
+  },
+];
 
 const Projects = () => {
-     const containerRef = useRef<HTMLDivElement>(null);
-     let isMouseDown = false;
-     let startX: number;
-     let scrollLeft: number;
+  const containerRef = useRef<HTMLDivElement>(null);
 
-     useEffect(() => {
-          const container = containerRef.current;
+  const scrollDown = () => {
+    if (containerRef.current) {
+      const cardHeight = (containerRef.current.firstChild as HTMLElement)
+        ?.clientHeight;
+      if (cardHeight) {
+        containerRef.current.scrollBy({
+          top: cardHeight,
+          behavior: "smooth",
+        });
+      }
+    }
+  };
 
-          const handleMouseDown = (e: MouseEvent) => {
-               isMouseDown = true;
-               startX = e.pageX - container!.offsetLeft;
-               scrollLeft = container!.scrollLeft;
-          };
+  // Scroll up by one card's height
+  const scrollUp = () => {
+    if (containerRef.current) {
+      const cardHeight = (containerRef.current.firstChild as HTMLElement)
+        ?.clientHeight;
+      if (cardHeight) {
+        containerRef.current.scrollBy({
+          top: -cardHeight,
+          behavior: "smooth",
+        });
+      }
+    }
+  };
 
-          const handleMouseUp = () => {
-               isMouseDown = false;
-          };
-
-          const handleMouseMove = (e: MouseEvent) => {
-               if (!isMouseDown) return;
-               e.preventDefault();
-               const x = e.pageX - container!.offsetLeft;
-               const walk = (x - startX) * 3;
-               container!.scrollLeft = scrollLeft - walk;
-          };
-
-          container?.addEventListener("mousedown", handleMouseDown);
-          container?.addEventListener("mouseup", handleMouseUp);
-          container?.addEventListener("mouseleave", handleMouseUp);
-          container?.addEventListener("mousemove", handleMouseMove);
-
-          return () => {
-               container?.removeEventListener("mousedown", handleMouseDown);
-               container?.removeEventListener("mouseup", handleMouseUp);
-               container?.removeEventListener("mouseleave", handleMouseUp);
-               container?.removeEventListener("mousemove", handleMouseMove);
-          };
-     }, []);
-
-     return (
-          <div className="scale-90 pt-5 md:scale-100">
-               <h1 className="z-30 mt-5 select-none text-center text-xl uppercase tracking-widest md:mt-20">
-                    PROJECTS
-               </h1>
-               <div
-                    ref={containerRef}
-                    className="scroll-behavior-smooth mt-2 flex max-w-3xl items-center gap-5 overflow-x-scroll border-t border-gray-600/75 bg-gradient-to-t from-blue-500/10 to-transparent p-10 px-[15rem] pb-5 text-center shadow-inner scrollbar-thin scrollbar-track-white/10 scrollbar-thumb-white/50 hover:cursor-pointer md:mx-auto md:px-10"
-               >
-                    <motion.div
-                         whileHover={{ scale: 1.025 }}
-                         whileTap={{ scale: 0.99 }}
-                         className="flex flex-col rounded-md border border-gray-600/50 bg-[#111111] pb-4 shadow-md"
-                    >
-                         <Image
-                              src="/Siphon.png"
-                              className="h-80 rounded-tr-md  rounded-tl-md border-b border-gray-500/50 object-fill"
-                              width={1000}
-                              height={1000}
-                              alt="Project 0 Image"
-                              priority={true}
-                         />
-                         <h3 className="pt-2 tracking-widest">Siphon</h3>
-                         <p className="px-3 pt-2 pb-4 text-left text-xs text-gray-400">
-                              HTML to JSON web scraping tool for easy text
-                              extraction. Built with NextJS, Cheerio,
-                              Typescript, and Tailwind.
-                         </p>
-                         <div className="flex items-center justify-center gap-20 px-5">
-                              <Link
-                                   href="https://github.com/brodyamcfarland/Siphon"
-                                   target="_blank"
-                                   className="rounded-lg border border-gray-600/50 bg-black px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-black/10"
-                              >
-                                   Code
-                              </Link>
-                              <Link
-                                   href="https://siphon-chi.vercel.app/"
-                                   target="_blank"
-                                   className="rounded-lg border border-gray-600/50 bg-gray-700 px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-gray-500"
-                              >
-                                   Demo
-                              </Link>
-                         </div>
-                    </motion.div>
-                    <motion.div
-                         whileHover={{ scale: 1.025 }}
-                         whileTap={{ scale: 0.99 }}
-                         className="flex flex-col rounded-md border border-gray-600/50 bg-[#111111] pb-4 shadow-md"
-                    >
-                         <Image
-                              src="/threefiber.png"
-                              className="h-80 w-full rounded-tr-md  rounded-tl-md border-b border-gray-500/50 object-fill"
-                              width={10000}
-                              height={10000}
-                              alt="Project 3D Image"
-                              priority={true}
-                         />
-                         <h3 className="flex items-center justify-center pt-2 tracking-widest">
-                              3-D Portfolio
-                         </h3>
-                         <p className="px-3 pt-2 pb-4 text-left text-xs text-gray-400">
-                              3-D version of portfolio. Built with NextJS,
-                              React-Three-Fiber, React-Three-DREI, CannonJS,
-                              Tailwind, and Typescript.
-                         </p>
-                         <div className="flex items-center justify-center gap-20 px-5">
-                              <Link
-                                   href="https://github.com/brodyamcfarland/3D-Website"
-                                   target="_blank"
-                                   className="rounded-lg border border-gray-600/50 bg-black px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-black/10"
-                              >
-                                   Code
-                              </Link>
-                              <Link
-                                   href="https://3d-website-indol.vercel.app/"
-                                   target="_blank"
-                                   className="rounded-lg border border-gray-600/50 bg-gray-700 px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-gray-500"
-                              >
-                                   Demo
-                              </Link>
-                         </div>
-                    </motion.div>
-                    <motion.div
-                         whileHover={{ scale: 1.025 }}
-                         whileTap={{ scale: 0.99 }}
-                         className="flex flex-col rounded-md border border-gray-600/50 bg-[#111111] pb-4 shadow-md"
-                    >
-                         <Image
-                              src="/GET.PNG"
-                              className="h-80 w-full rounded-tr-md  rounded-tl-md border-b border-gray-500/50 object-fill"
-                              width={10000}
-                              height={10000}
-                              alt="Project 1 Image"
-                              priority={true}
-                         />
-                         <h3 className="flex items-center justify-center pt-2 tracking-widest">
-                              GET
-                         </h3>
-                         <p className="px-3 pt-2 pb-4 text-left text-xs text-gray-400">
-                              E-Commerce Website built with NextJS, TypeScript,
-                              Tailwind, Redux, Firebase, and Framer Motion.
-                         </p>
-                         <div className="flex items-center justify-center gap-20 px-5">
-                              <Link
-                                   href="https://github.com/brodyamcfarland/shopping-web-app"
-                                   target="_blank"
-                                   className="rounded-lg border border-gray-600/50 bg-black px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-black/10"
-                              >
-                                   Code
-                              </Link>
-                              <Link
-                                   href="https://shopping-sepia-seven.vercel.app/"
-                                   target="_blank"
-                                   className="rounded-lg border border-gray-600/50 bg-gray-700 px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-gray-500"
-                              >
-                                   Demo
-                              </Link>
-                         </div>
-                    </motion.div>
-                    <motion.div
-                         whileHover={{ scale: 1.025 }}
-                         whileTap={{ scale: 0.99 }}
-                         className="flex flex-col rounded-md border border-gray-600/50 bg-[#111111] pb-4 shadow-md"
-                    >
-                         <Image
-                              src="/CoinCamp.PNG"
-                              className="h-80 w-full rounded-tr-md  rounded-tl-md border-b border-gray-500/50 object-fill"
-                              width={10000}
-                              height={10000}
-                              alt="Project 2 Image"
-                              priority={true}
-                         />
-                         <h3 className="pt-2 tracking-widest">Coin Camp</h3>
-                         <p className="px-3 pt-2 pb-4 text-left text-xs text-gray-400">
-                              Crowdfunding Website built with NextJS,
-                              Typescript, Tailwind, Thirdweb, powered by Polygon
-                              (MATIC).
-                         </p>
-                         <div className="flex items-center justify-center gap-20 px-5">
-                              <Link
-                                   href="https://github.com/brodyamcfarland/CoinCamp"
-                                   target="_blank"
-                                   className="rounded-lg border border-gray-600/50 bg-black px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-black/10"
-                              >
-                                   Code
-                              </Link>
-                              <Link
-                                   href="https://coin-camp-jade.vercel.app/"
-                                   target="_blank"
-                                   className="rounded-lg border border-gray-600/50 bg-gray-700 px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-gray-500"
-                              >
-                                   Demo
-                              </Link>
-                         </div>
-                    </motion.div>
-                    <motion.div
-                         whileHover={{ scale: 1.025 }}
-                         whileTap={{ scale: 0.99 }}
-                         className="flex flex-col rounded-md border border-gray-600/50 bg-[#111111] pb-4 shadow-md"
-                    >
-                         <Image
-                              src="/Shipped.PNG"
-                              className="h-80 w-full rounded-tr-md  rounded-tl-md border-b border-gray-500/50 object-cover"
-                              width={1000}
-                              height={1000}
-                              alt="Project 3 Image"
-                              priority={true}
-                         />
-                         <h3 className="pt-2 tracking-widest">Shipped</h3>
-                         <p className="px-3 pt-2 pb-4 text-left text-xs text-gray-400">
-                              Online Shopping website built with NextJS,
-                              Typescript, Tailwind, Fakestore API, Next Auth,
-                              Stripe, React Redux, and Firebase.
-                         </p>
-                         <div className="flex items-center justify-center gap-20 px-5">
-                              <Link
-                                   href="https://github.com/brodyamcfarland/shipped"
-                                   target="_blank"
-                                   className="rounded-lg border border-gray-600/50 bg-black px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-black/10"
-                              >
-                                   Code
-                              </Link>
-                              <Link
-                                   href="https://shipped.vercel.app/"
-                                   target="_blank"
-                                   className="rounded-lg border border-gray-600/50 bg-gray-700 px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-gray-500"
-                              >
-                                   Demo
-                              </Link>
-                         </div>
-                    </motion.div>
-                    <motion.div
-                         whileHover={{ scale: 1.025 }}
-                         whileTap={{ scale: 0.99 }}
-                         className="flex flex-col rounded-md border border-gray-600/50 bg-[#111111] pb-4 shadow-md"
-                    >
-                         <Image
-                              src="/Soulbound.PNG"
-                              className="h-80 w-full rounded-tr-md  rounded-tl-md border-b border-gray-500/50 object-cover"
-                              width={1000}
-                              height={1000}
-                              alt="Project 4 Image"
-                              priority={true}
-                         />
-                         <h3 className="pt-2 tracking-widest">Connected</h3>
-                         <p className="px-3 pt-2 pb-4 text-left text-xs text-gray-400">
-                              Social Media website built with React, Tailwind,
-                              Firebase, Ethers JS, Solidity, and Typescript.
-                         </p>
-                         <div className="flex items-center justify-center gap-20 px-5">
-                              <Link
-                                   href="https://github.com/brodyamcfarland/c0nn3ct3d"
-                                   target="_blank"
-                                   className="rounded-lg border border-gray-600/50 bg-black px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-black/10"
-                              >
-                                   Code
-                              </Link>
-                              <Link
-                                   href="https://brodyamcfarland.github.io/c0nn3ct3d/"
-                                   target="_blank"
-                                   className="rounded-lg border border-gray-600/50 bg-gray-700 px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-gray-500"
-                              >
-                                   Demo
-                              </Link>
-                         </div>
-                    </motion.div>
-               </div>
+  return (
+    <div className="relative scale-90 md:scale-100">
+      <h1 className="z-30 select-none pb-10 text-center text-xl uppercase tracking-widest">
+        PROJECTS
+      </h1>
+      {/* UP and DOWN Arrows */}
+      <div className="absolute top-[848px] right-[700px] z-[999] cursor-pointer rounded-full border-[2px] border-[#FFFFFF60] opacity-75 duration-500  hover:opacity-100">
+        <BsArrowDownCircleFill
+          color="#FFFFFF60"
+          size={50}
+          onClick={scrollDown}
+        />
+      </div>
+      <div className="absolute top-[52px] right-[700px] z-[999] cursor-pointer rounded-full border-[2px] border-[#FFFFFF60] opacity-75 duration-500 hover:opacity-100">
+        <BsArrowUpCircleFill color="#FFFFFF60" size={50} onClick={scrollUp} />
+      </div>
+      <div
+        ref={containerRef}
+        className="scroll-behavior-smooth relative mt-2 flex h-[70vh] max-w-3xl flex-col items-center gap-5 rounded-md border border-[#FFFFFF20] bg-[#FFFFFF10] p-10 px-[15rem] pb-5 text-center shadow-inner backdrop-blur-md scrollbar-thin scrollbar-none scrollbar-track-white/10 scrollbar-thumb-white/50 md:mx-auto md:px-10"
+      >
+        {projectData.map((project, index) => (
+          <div
+            key={index}
+            className="flex h-[300px] flex-row rounded-md border border-gray-600/50 bg-[#111111] shadow-md"
+          >
+            <Image
+              src={project.imageSrc}
+              className="h-full w-full max-w-[250px] rounded-bl-md rounded-tl-md border-r border-gray-500/50 object-cover"
+              width={10000}
+              height={10000}
+              alt={`Project ${project.title} Image`}
+              priority={true}
+            />
+            <div className="flex w-full flex-col p-4">
+              <h3 className="pt-2 pl-4 text-left tracking-widest">
+                {project.title}
+              </h3>
+              <p className=" px-3 pt-2 pb-4 text-left text-xs text-gray-400">
+                {project.description}
+              </p>
+              <div className="flex flex-row flex-wrap items-center justify-center gap-x-2 gap-y-2">
+                {project.stack.map((item) => (
+                  <span className="rounded-full border border-[#FFFFFF50] bg-orange-700/30 px-2 py-1 text-xs">
+                    {item}
+                  </span>
+                ))}
+              </div>
+              <div className="flex-1" />
+              <div className="flex items-center justify-center gap-20 px-5 pb-2">
+                {project.codeLink === "Not Available" ? (
+                  <span className="cursor-not-allowed rounded-lg border border-gray-600/50 bg-black px-4 py-2 text-sm text-gray-500 backdrop-blur-xl duration-300">
+                    Private Codebase
+                  </span>
+                ) : (
+                  <Link
+                    href={project.codeLink}
+                    target="_blank"
+                    className="rounded-lg border border-gray-600/50 bg-black px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-black/10"
+                  >
+                    Code
+                  </Link>
+                )}
+                <Link
+                  href={project.demoLink}
+                  target="_blank"
+                  className="rounded-lg border border-gray-600/50 bg-gray-700 px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-gray-500"
+                >
+                  {project.codeLink === "Not Available" ? "Link" : "Demo"}
+                </Link>
+              </div>
+            </div>
           </div>
-     );
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default Projects;
