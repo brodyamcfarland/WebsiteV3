@@ -30,17 +30,19 @@ const SkillRing = () => {
   useEffect(() => {
     const container = containerRef.current;
     const images = container?.querySelectorAll("img, a");
+
     const radius = container?.clientWidth ? container.clientWidth / 3 : 0;
     const totalImages = images?.length || 0;
 
     if (images && totalImages > 0) {
       images.forEach((img, i) => {
         const angle = (i / totalImages) * 330;
-        img.style.position = "absolute";
-        img.style.left = "50%";
-        img.style.top = "50%";
-        img.style.transform = `rotate(${angle}deg) translate(${radius}px) rotate(-${angle}deg)`;
-        img.style.transformOrigin = "0 0";
+        const imageElement = img as HTMLImageElement; // Cast img to HTMLImageElement
+        imageElement.style.position = "absolute";
+        imageElement.style.left = "50%";
+        imageElement.style.top = "50%";
+        imageElement.style.transform = `rotate(${angle}deg) translate(${radius}px) rotate(-${angle}deg)`;
+        imageElement.style.transformOrigin = "0 0";
       });
     }
   }, []);
