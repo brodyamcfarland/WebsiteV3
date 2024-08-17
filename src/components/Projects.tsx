@@ -151,33 +151,33 @@ const Projects = () => {
   };
 
   return (
-    <div className="relative scale-90 md:scale-100">
+    <div className="relative">
       <h1 className="z-30 select-none pb-10 text-center text-xl uppercase tracking-widest">
         PROJECTS
       </h1>
       {/* UP and DOWN Arrows */}
-      <div className="absolute top-[848px] right-[700px] z-[999] cursor-pointer rounded-full border-[2px] border-[#FFFFFF60] opacity-75 duration-500  hover:opacity-100">
+      <div className="absolute top-[40px] right-[73.5px] z-[999] cursor-pointer rounded-full border-[2px] border-[#FFFFFF60] opacity-75 duration-500 hover:opacity-100 md:top-[740px]">
         <BsArrowDownCircleFill
           color="#FFFFFF60"
           size={50}
           onClick={scrollDown}
         />
       </div>
-      <div className="absolute top-[52px] right-[700px] z-[999] cursor-pointer rounded-full border-[2px] border-[#FFFFFF60] opacity-75 duration-500 hover:opacity-100">
+      <div className="absolute top-[40px] right-[355.5px] z-[999] cursor-pointer rounded-full border-[2px] border-[#FFFFFF60] opacity-75 duration-500 hover:opacity-100 md:right-[73.5px]">
         <BsArrowUpCircleFill color="#FFFFFF60" size={50} onClick={scrollUp} />
       </div>
       <div
         ref={containerRef}
-        className="scroll-behavior-smooth relative mt-2 flex h-[70vh] max-w-3xl flex-col items-center gap-5 rounded-md border border-[#FFFFFF20] bg-[#FFFFFF10] p-10 px-[15rem] pb-5 text-center shadow-inner backdrop-blur-md scrollbar-thin scrollbar-none scrollbar-track-white/10 scrollbar-thumb-white/50 md:mx-auto md:px-10"
+        className="scroll-behavior-smooth relative mb-12 mt-2 flex h-[60vh] w-auto max-w-sm flex-col items-center gap-5 overflow-hidden rounded-md bg-transparent p-10 px-[15rem] pb-5 text-center shadow-inner md:mx-auto md:mb-0 md:max-w-3xl md:border md:border-[#FFFFFF20] md:bg-[#FFFFFF10] md:px-10 md:scrollbar-thin md:scrollbar-none md:scrollbar-track-white/10 md:scrollbar-thumb-white/50"
       >
         {projectData.map((project, index) => (
           <div
             key={index}
-            className="flex h-[300px] flex-row rounded-md border border-gray-600/50 bg-[#111111] shadow-md"
+            className=" flex h-auto w-[350px] flex-col rounded-md border border-gray-600/50 bg-[#111111] md:h-[300px] md:w-auto md:flex-row"
           >
             <Image
               src={project.imageSrc}
-              className="h-full w-full max-w-[250px] rounded-bl-md rounded-tl-md border-r border-gray-500/50 object-cover"
+              className="h-[200px] rounded-bl-md rounded-tl-md border-r border-gray-500/50 bg-black object-contain md:h-full md:w-full md:max-w-[250px] md:object-cover"
               width={10000}
               height={10000}
               alt={`Project ${project.title} Image`}
@@ -198,16 +198,16 @@ const Projects = () => {
                 ))}
               </div>
               <div className="flex-1" />
-              <div className="flex items-center justify-center gap-20 px-5 pb-2">
+              <div className="flex items-center justify-center gap-20 px-5 pb-2 pt-5">
                 {project.codeLink === "Not Available" ? (
-                  <span className="cursor-not-allowed rounded-lg border border-gray-600/50 bg-black px-4 py-2 text-sm text-gray-500 backdrop-blur-xl duration-300">
+                  <span className="cursor-not-allowed rounded-lg border border-gray-600/50 bg-black px-4 py-2 text-sm text-gray-500  duration-300">
                     Private Codebase
                   </span>
                 ) : (
                   <Link
                     href={project.codeLink}
                     target="_blank"
-                    className="rounded-lg border border-gray-600/50 bg-black px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-black/10"
+                    className="rounded-lg border border-gray-600/50 bg-black px-4 py-2 text-sm duration-300 hover:bg-black/10"
                   >
                     Code
                   </Link>
@@ -215,7 +215,7 @@ const Projects = () => {
                 <Link
                   href={project.demoLink}
                   target="_blank"
-                  className="rounded-lg border border-gray-600/50 bg-gray-700 px-4 py-2 text-sm backdrop-blur-xl duration-300 hover:bg-gray-500"
+                  className="rounded-lg border border-gray-600/50 bg-gray-700 px-4 py-2 text-sm duration-300 hover:bg-gray-500"
                 >
                   {project.codeLink === "Not Available" ? "Link" : "Demo"}
                 </Link>
