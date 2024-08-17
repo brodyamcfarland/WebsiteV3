@@ -37,7 +37,7 @@ const Contact = () => {
       <h1 className="z-30 select-none text-center text-xl uppercase tracking-widest md:mt-20 ">
         CONTACT
       </h1>
-      <div className="max-w-screen mt-2 flex w-full flex-col items-center border-t border-gray-600/75 pt-10 pb-5 text-center shadow-inner md:mx-auto md:max-w-3xl">
+      <div className="max-w-screen mt-2 flex w-[320px] flex-col items-center border-t border-gray-600/75 pt-10 pb-5 text-center shadow-inner md:w-full md:max-w-3xl">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -46,7 +46,7 @@ const Contact = () => {
           }}
           className="mt-18 flex flex-col space-y-10 md:mt-0"
         >
-          <div className="space-y-3 md:space-y-3">
+          <div className="w-[300px] space-y-3 md:space-y-3">
             <div className="flex items-center justify-start space-x-5">
               <AiFillPhone className="h-5 w-5 text-white md:h-7  md:w-7" />
               <p className="text-sm opacity-75 md:text-lg">(805) 551-3036</p>
