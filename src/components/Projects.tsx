@@ -156,14 +156,14 @@ const Projects = () => {
         PROJECTS
       </h1>
       {/* UP and DOWN Arrows */}
-      <div className="absolute top-[33px] right-[10.5px] z-[999] cursor-pointer rounded-full border-[2px] border-[#FFFFFF60] opacity-75 duration-500 hover:opacity-100 md:top-[644px] md:right-[720.5px]">
+      <div className="absolute top-[33px] right-[10.5px] z-[999] cursor-pointer rounded-full border-[2px] border-[#FFFFFF60] opacity-75 duration-500 hover:opacity-100 md:top-[582px] md:right-[720.5px]">
         <BsArrowDownCircleFill
           color="#FFFFFF60"
           size={40}
           onClick={scrollDown}
         />
       </div>
-      <div className="absolute top-[32px] right-[297px] z-[999] cursor-pointer rounded-full border-[2px] border-[#FFFFFF60] opacity-75 duration-500 hover:opacity-100 md:right-[720.5px]">
+      <div className="absolute top-[32px] right-[297px] z-[999] cursor-pointer rounded-full border-[2px] border-[#FFFFFF60] opacity-75 duration-500 hover:opacity-100 md:top-[32px] md:right-[720.5px]">
         <BsArrowUpCircleFill color="#FFFFFF60" size={40} onClick={scrollUp} />
       </div>
       <div
