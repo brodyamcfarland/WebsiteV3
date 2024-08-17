@@ -129,7 +129,7 @@ const Projects = () => {
         ?.clientHeight;
       if (cardHeight) {
         containerRef.current.scrollBy({
-          top: cardHeight,
+          top: cardHeight / 2,
           behavior: "smooth",
         });
       }
@@ -152,23 +152,23 @@ const Projects = () => {
 
   return (
     <div className="relative">
-      <h1 className="z-30 select-none pb-10 text-center text-xl uppercase tracking-widest">
+      <h1 className="z-30 select-none pb-5 text-center text-xl uppercase tracking-widest">
         PROJECTS
       </h1>
       {/* UP and DOWN Arrows */}
-      <div className="absolute top-[40px] right-[73.5px] z-[999] cursor-pointer rounded-full border-[2px] border-[#FFFFFF60] opacity-75 duration-500 hover:opacity-100 md:top-[740px]">
+      <div className="absolute top-[33px] right-[10.5px] z-[999] cursor-pointer rounded-full border-[2px] border-[#FFFFFF60] opacity-75 duration-500 hover:opacity-100 md:top-[644px] md:right-[720.5px]">
         <BsArrowDownCircleFill
           color="#FFFFFF60"
-          size={50}
+          size={40}
           onClick={scrollDown}
         />
       </div>
-      <div className="absolute top-[40px] right-[355.5px] z-[999] cursor-pointer rounded-full border-[2px] border-[#FFFFFF60] opacity-75 duration-500 hover:opacity-100 md:right-[73.5px]">
-        <BsArrowUpCircleFill color="#FFFFFF60" size={50} onClick={scrollUp} />
+      <div className="absolute top-[32px] right-[297px] z-[999] cursor-pointer rounded-full border-[2px] border-[#FFFFFF60] opacity-75 duration-500 hover:opacity-100 md:right-[720.5px]">
+        <BsArrowUpCircleFill color="#FFFFFF60" size={40} onClick={scrollUp} />
       </div>
       <div
         ref={containerRef}
-        className="scroll-behavior-smooth relative mb-12 mt-2 flex h-[60vh] w-auto max-w-sm flex-col items-center gap-5 overflow-hidden rounded-md bg-transparent p-10 px-[15rem] pb-5 text-center shadow-inner md:mx-auto md:mb-0 md:max-w-3xl md:border md:border-[#FFFFFF20] md:bg-[#FFFFFF10] md:px-10 md:scrollbar-thin md:scrollbar-none md:scrollbar-track-white/10 md:scrollbar-thumb-white/50"
+        className="scroll-behavior-smooth relative mb-12 mt-2 flex h-[60vh] w-auto max-w-sm flex-col items-center gap-5 overflow-hidden rounded-md bg-transparent pb-5 text-center shadow-inner md:mx-auto md:mb-0 md:max-w-3xl md:border md:border-[#FFFFFF20] md:bg-[#FFFFFF10] md:px-10 md:scrollbar-thin md:scrollbar-none md:scrollbar-track-white/10 md:scrollbar-thumb-white/50"
       >
         {projectData.map((project, index) => (
           <div

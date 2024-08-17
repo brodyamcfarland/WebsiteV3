@@ -33,31 +33,35 @@ const Contact = () => {
   };
 
   return (
-    <div className="mx-4 pb-20 pt-5">
-      <h1 className="z-30 select-none text-center text-xl uppercase tracking-widest md:mt-20">
+    <div className="mx-4 pt-20 md:pt-0">
+      <h1 className="z-30 select-none text-center text-xl uppercase tracking-widest md:mt-20 ">
         CONTACT
       </h1>
-      <div className="mt-2 flex max-w-3xl flex-col items-center border-t border-gray-600/75 bg-gradient-to-t from-red-500/10 to-transparent p-10 pb-5 text-center shadow-inner md:mx-auto">
+      <div className="max-w-screen mt-2 flex w-full flex-col items-center border-t border-gray-600/75 pt-10 pb-5 text-center shadow-inner md:mx-auto md:max-w-3xl">
         <motion.div
-          initial={{ y: 400 }}
-          whileInView={{ y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           transition={{
-            duration: 1.1,
+            duration: 2,
           }}
           className="mt-18 flex flex-col space-y-10 md:mt-0"
         >
           <div className="space-y-3 md:space-y-3">
-            <div className="flex items-center justify-center space-x-5">
-              <AiFillPhone className="h-7 w-7 animate-pulse text-emerald-600" />
-              <p className="text-md md:text-lg">(805) 551-3036</p>
+            <div className="flex items-center justify-start space-x-5">
+              <AiFillPhone className="h-5 w-5 text-white md:h-7  md:w-7" />
+              <p className="text-sm opacity-75 md:text-lg">(805) 551-3036</p>
             </div>
-            <div className="flex items-center justify-center space-x-5">
-              <AiOutlineMail className="h-7 w-7 animate-pulse text-emerald-600" />
-              <p className="text-md md:text-lg">brodyamcfarland@gmail.com</p>
+            <div className="flex items-center justify-start space-x-5">
+              <AiOutlineMail className="h-5 w-5 text-white md:h-7  md:w-7" />
+              <p className="text-sm opacity-75 md:text-lg">
+                brodyamcfarland@gmail.com
+              </p>
             </div>
-            <div className="flex items-center justify-center space-x-5">
-              <BiMap className="h-7 w-7 animate-pulse text-emerald-600" />
-              <p className="text-md md:text-lg">Simi Valley, CA, 93065</p>
+            <div className="flex items-center justify-start space-x-5">
+              <BiMap className="h-5 w-5 text-white md:h-7  md:w-7" />
+              <p className="text-sm opacity-75 md:text-lg">
+                Thousand Oaks, CA 91360
+              </p>
             </div>
           </div>
           <form
@@ -88,14 +92,16 @@ const Contact = () => {
             <textarea
               name="message"
               placeholder="Message"
-              className="contactInput"
+              className="contactInput min-h-[100px] md:min-h-[200px]"
             />
-            <button
-              type="submit"
-              className="rounded-md bg-[#0e8882] py-3 px-10 text-lg font-semibold opacity-70 duration-500 hover:opacity-100"
-            >
-              Submit
-            </button>
+            <div className="flex items-center justify-center">
+              <button
+                type="submit"
+                className="w-[150px] rounded-md border border-white/50 bg-transparent py-1 px-5 text-lg font-semibold opacity-70 duration-500 hover:bg-white/20 hover:opacity-100"
+              >
+                Send Email
+              </button>
+            </div>
           </form>
         </motion.div>
       </div>
