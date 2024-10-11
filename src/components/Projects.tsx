@@ -173,7 +173,9 @@ const Projects = () => {
         {projectData.map((project, index) => (
           <div
             key={index}
-            className=" flex h-auto w-[350px] flex-col rounded-md border border-gray-600/50 bg-[#111111] md:h-[300px] md:w-auto md:flex-row"
+            className={`flex h-auto w-[350px] flex-col rounded-md border border-gray-600/50 bg-[#111111] md:h-[300px] md:w-auto md:flex-row ${
+              index === 0 ? "mt-4" : ""
+            }`}
           >
             <Image
               src={project.imageSrc}
@@ -191,8 +193,11 @@ const Projects = () => {
                 {project.description}
               </p>
               <div className="flex flex-row flex-wrap items-center justify-center gap-x-2 gap-y-2">
-                {project.stack.map((item) => (
-                  <span className="rounded-full border border-[#FFFFFF50] bg-orange-700/30 px-2 py-1 text-xs">
+                {project.stack.map((item, index) => (
+                  <span
+                    className="rounded-full border border-[#FFFFFF50] bg-orange-700/30 px-2 py-1 text-xs"
+                    key={index}
+                  >
                     {item}
                   </span>
                 ))}
