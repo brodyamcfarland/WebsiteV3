@@ -52,7 +52,7 @@ const Navbar = () => {
         <AiOutlineMessage size={23} />
       </Link>
       <Link
-        href="/Brody-McFarland-Resume-2-22-23.pdf"
+        href="/BrodyMcFarland-Resume.pdf"
         download={true}
         target="_blank"
         rel="noopener noreferrer"
