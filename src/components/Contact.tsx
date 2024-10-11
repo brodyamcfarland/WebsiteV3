@@ -27,6 +27,7 @@ const Contact = () => {
       },
       (error) => {
         toast.error(`Error: ${error.text}`);
+        console.log(error, error.text);
       }
     );
     (e.target as any).reset();
