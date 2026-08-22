@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BsBoxes } from "react-icons/bs";
 
 const ThreeFiber = () => {
   return (
@@ -6,9 +7,11 @@ const ThreeFiber = () => {
       href="https://3d-website-indol.vercel.app/"
       target="_blank"
       title="3D-Website"
-      className="relative mt-6 rounded-full border border-gray-600/50 bg-red-800/50 py-1 px-3 text-sm duration-300 hover:bg-red-800/90 md:mt-14 md:py-2 md:px-6"
+      className="inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-accent/40 bg-ink/80 px-4 py-1.5 text-xs font-semibold tracking-wider text-accent backdrop-blur transition-all duration-300 hover:bg-accent hover:text-black hover:shadow-glow md:px-6 md:py-2 md:text-sm"
     >
-      View in 3-D
+      <BsBoxes size={14} />
+      <span className="hidden md:inline">View in 3-D</span>
+      <span className="md:hidden">3-D</span>
     </Link>
   );
 };

@@ -1,111 +1,154 @@
-import React, { useRef } from "react";
+import { useState, type FormEvent } from "react";
 import { AiFillPhone, AiOutlineMail } from "react-icons/ai";
 import { BiMap } from "react-icons/bi";
+import { BsSend } from "react-icons/bs";
 import emailjs from "@emailjs/browser";
 import toast from "react-hot-toast";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
+
+const details = [
+  { Icon: AiFillPhone, label: "Phone", value: "(805) 551-3036", href: "tel:+18055513036" },
+  {
+    Icon: AiOutlineMail,
+    label: "Email",
+    value: "brodyamcfarland@gmail.com",
+    href: "mailto:brodyamcfarland@gmail.com",
+  },
+  { Icon: BiMap, label: "Location", value: "Thousand Oaks, CA 91360" },
+];
 
 const Contact = () => {
-  const form = useRef<any>();
+  const [sending, setSending] = useState(false);
 
-  const sendEmail = (e: React.FormEvent) => {
+  const sendEmail = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const serviceID = process.env.NEXT_PUBLIC_SERVICE_ID!;
     const templateID = process.env.NEXT_PUBLIC_TEMPLATE_ID!;
     const publicKey = process.env.NEXT_PUBLIC_PUBLIC_KEY!;
-    const inputs = form.current!.elements;
-    for (let i = 0; i < inputs.length - 1; i++) {
-      const input = inputs[i];
-      if (!input.value) {
-        toast.error(`Error: Please fill "${input.name}"`);
-        return;
-      }
-    }
-    emailjs.sendForm(serviceID, templateID, form.current!, publicKey).then(
-      (result) => {
-        toast.success(`Email has been successfully sent.`);
-      },
-      (error) => {
-        toast.error(`Error: ${error.text}`);
-        console.log(error, error.text);
-      }
+    const formEl = e.currentTarget;
+    const fields = Array.from(formEl.elements).filter(
+      (el): el is HTMLInputElement | HTMLTextAreaElement =>
+        el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement
     );
-    (e.target as any).reset();
+    const empty = fields.find((f) => !f.value.trim());
+    if (empty) {
+      toast.error(`Please fill in "${empty.name}"`);
+      return;
+    }
+    setSending(true);
+    emailjs
+      .sendForm(serviceID, templateID, formEl, { publicKey })
+      .then(
+        () => {
+          toast.success(`Email has been successfully sent.`);
+        },
+        (error) => {
+          toast.error(`Error: ${error.text}`);
+          console.log(error, error.text);
+        }
+      )
+      .finally(() => setSending(false));
+    formEl.reset();
   };
 
   return (
-    <div className="mx-4 pt-20 md:pt-0">
-      <h1 className="z-30 select-none text-center text-xl uppercase tracking-widest md:mt-20 ">
-        CONTACT
-      </h1>
-      <div className="max-w-screen mt-2 flex w-[320px] flex-col items-center border-t border-gray-600/75 pt-10 pb-5 text-center shadow-inner md:w-full md:max-w-3xl">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{
-            duration: 2,
-          }}
-          className="mt-18 flex flex-col space-y-10 md:mt-0"
-        >
-          <div className="w-[300px] space-y-3 md:space-y-3">
-            <div className="flex items-center justify-start space-x-5">
-              <AiFillPhone className="h-5 w-5 text-white md:h-7  md:w-7" />
-              <p className="text-sm opacity-75 md:text-lg">(805) 551-3036</p>
-            </div>
-            <div className="flex items-center justify-start space-x-5">
-              <AiOutlineMail className="h-5 w-5 text-white md:h-7  md:w-7" />
-              <p className="text-sm opacity-75 md:text-lg">
-                brodyamcfarland@gmail.com
-              </p>
-            </div>
-            <div className="flex items-center justify-start space-x-5">
-              <BiMap className="h-5 w-5 text-white md:h-7  md:w-7" />
-              <p className="text-sm opacity-75 md:text-lg">
-                Thousand Oaks, CA 91360
-              </p>
-            </div>
+    <div className="mx-auto w-full max-w-6xl px-6 md:px-24 xl:px-6">
+      <div className="mb-10 md:mb-14">
+        <p className="eyebrow">02 — Get in touch</p>
+        <h2 className="section-title mt-3">Contact</h2>
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.7 }}
+        className="glass grid grid-cols-1 overflow-hidden md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]"
+      >
+        {/* Info column */}
+        <div className="relative flex flex-col justify-between gap-8 border-b border-white/5 bg-linear-to-br from-accent/10 via-transparent to-transparent p-6 md:border-b-0 md:border-r md:p-8">
+          <div>
+            <h3 className="font-display text-2xl font-bold tracking-tight">
+              Let&apos;s build something.
+            </h3>
+            <p className="mt-3 text-sm leading-relaxed text-gray-400">
+              Open to full-time roles and freelance projects. Drop a message
+              and I&apos;ll get back to you within a day.
+            </p>
           </div>
-          <form
-            ref={form}
-            onSubmit={sendEmail}
-            className="mx-auto flex w-full flex-col space-y-2 pb-20"
-          >
-            <div className="flex flex-col space-y-2 space-x-0 md:flex-row md:space-y-0 md:space-x-2">
-              <input
-                name="name"
-                placeholder="Name"
-                className="contactInput"
-                type="text"
-              />
-              <input
-                name="email"
-                placeholder="Email"
-                className="contactInput"
-                type="email"
-              />
-            </div>
+          <ul className="space-y-4">
+            {details.map(({ Icon, label, value, href }) => (
+              <li key={label} className="flex items-center gap-4">
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/4 text-accent">
+                  <Icon className="h-4 w-4" />
+                </span>
+                <div className="min-w-0">
+                  <p className="text-[10px] uppercase tracking-[0.25em] text-gray-500">
+                    {label}
+                  </p>
+                  {href ? (
+                    <a
+                      href={href}
+                      className="block truncate text-sm text-gray-200 transition-colors hover:text-accent"
+                    >
+                      {value}
+                    </a>
+                  ) : (
+                    <p className="truncate text-sm text-gray-200">{value}</p>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Form column */}
+        <form
+          onSubmit={sendEmail}
+          className="flex flex-col gap-3 p-6 md:p-8"
+        >
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <input
-              name="subject"
-              placeholder="Subject"
+              name="name"
+              placeholder="Name"
               className="contactInput"
               type="text"
+              autoComplete="name"
             />
-            <textarea
-              name="message"
-              placeholder="Message"
-              className="contactInput min-h-[100px] md:min-h-[200px]"
+            <input
+              name="email"
+              placeholder="Email"
+              className="contactInput"
+              type="email"
+              autoComplete="email"
             />
-            <div className="flex items-center justify-center">
-              <button
-                type="submit"
-                className="w-[150px] rounded-md border border-white/50 bg-transparent py-1 px-5 text-lg font-semibold opacity-70 duration-500 hover:bg-white/20 hover:opacity-100"
-              >
-                Send Email
-              </button>
-            </div>
-          </form>
-        </motion.div>
-      </div>
+          </div>
+          <input
+            name="subject"
+            placeholder="Subject"
+            className="contactInput"
+            type="text"
+          />
+          <textarea
+            name="message"
+            placeholder="Message"
+            className="contactInput min-h-[140px] resize-y md:min-h-[180px]"
+          />
+          <div className="mt-1 flex items-center justify-between gap-4">
+            <p className="hidden text-xs text-gray-600 sm:block">
+              All fields required.
+            </p>
+            <button
+              type="submit"
+              disabled={sending}
+              className="btn-primary w-full disabled:cursor-wait disabled:opacity-60 sm:w-auto"
+            >
+              {sending ? "Sending…" : "Send message"}
+              <BsSend size={14} />
+            </button>
+          </div>
+        </form>
+      </motion.div>
     </div>
   );
 };

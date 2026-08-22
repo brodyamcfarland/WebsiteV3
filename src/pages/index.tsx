@@ -1,66 +1,59 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Navbar from "../components/Navbar";
-import SocialLinks from "../components/SocialLinks";
 import Hero from "../components/Hero";
-import ImageCarousel from "../components/SkillRing";
 import Projects from "../components/Projects";
 import Contact from "../components/Contact";
 import { Canvas } from "@react-three/fiber";
 import StarryBackground from "../components/StarryBackground";
-import SkillRing from "../components/SkillRing";
 
 const Home: NextPage = () => {
   return (
-    <div className="relative flex h-screen w-screen max-w-[100vw] flex-col overflow-y-scroll scroll-smooth bg-black font-main text-white  overflow-x-hidden scrollbar-thin scrollbar-track-white/10 scrollbar-thumb-white/50 md:snap-y md:snap-mandatory">
+    <div className="grain relative min-h-dvh w-full bg-ink font-main text-white">
       <Head>
         <title>Brody McFarland</title>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, viewport-fit=cover"
+        />
+        <meta
+          name="description"
+          content="Brody McFarland — web developer building full-stack products with Next.js, React Native, and Three.js."
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Canvas
-        style={{
-          position: "absolute",
-          height: "100vh",
-          background: "black",
-          zIndex: "0",
-          width: "100vw", // Ensure the width is set to 100vw
-          maxWidth: "100vw",
-        }}
-      >
-        <StarryBackground />
-      </Canvas>
 
-      <Navbar />
-      <SocialLinks />
-      <main className="flex flex-col items-center justify-center pb-20">
-        <Canvas
-          style={{
-            position: "absolute",
-            height: "100%",
-            background: "black",
-            zIndex: "0",
-          }}
-        >
+      {/* Fixed starfield background */}
+      <div className="pointer-events-none fixed inset-0 z-0">
+        <Canvas style={{ background: "#070708" }}>
           <StarryBackground />
         </Canvas>
+        {/* Vignette + warm glow so content sits on a soft ground */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(242,163,58,0.08),transparent_55%),radial-gradient(ellipse_at_bottom,rgba(0,0,0,0.8),transparent_60%)]" />
+      </div>
+
+
+      <main className="relative z-10 flex flex-col items-center">
         <section
           id="home"
-          className="flex h-screen shrink-0 flex-col items-center justify-center overflow-hidden md:snap-start"
+          className="flex min-h-dvh w-full scroll-mt-0 flex-col items-center justify-center overflow-hidden pt-12 pb-10 md:pt-0 md:pb-0"
         >
           <Hero />
         </section>
         <section
           id="projects"
-          className="flex h-screen shrink-0 flex-col items-center justify-center overflow-hidden md:snap-center"
+          className="w-full scroll-mt-16 py-20 md:py-28"
         >
           <Projects />
         </section>
         <section
           id="contact"
-          className="flex h-screen shrink-0 flex-col items-center justify-center overflow-hidden md:snap-center"
+          className="w-full scroll-mt-16 py-20 md:py-28"
         >
           <Contact />
         </section>
+        <footer className="w-full border-t border-white/5 py-8 text-center text-xs tracking-widest text-gray-600 md:pb-8">
+          © {new Date().getFullYear()} BRODY MCFARLAND
+        </footer>
       </main>
     </div>
   );

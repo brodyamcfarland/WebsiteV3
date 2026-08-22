@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
-import { BsArrowUpCircleFill, BsArrowDownCircleFill } from "react-icons/bs";
+import { motion } from "motion/react";
+import { BsArrowUpRight, BsGithub, BsLock } from "react-icons/bs";
 
 const projectData = [
   {
@@ -23,6 +23,7 @@ const projectData = [
       "sharp",
     ],
     demoLink: "https://www.starscript.com/",
+    featured: true,
   },
   {
     title: "Breathe Ops",
@@ -40,6 +41,7 @@ const projectData = [
     imageSrc: "/breathe-ops.png",
     codeLink: "Not Available",
     demoLink: "https://www.breatheops.com/",
+    featured: true,
   },
   {
     title: "3-D Portfolio",
@@ -120,113 +122,124 @@ const projectData = [
   },
 ];
 
-const Projects = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
+type Project = (typeof projectData)[number];
 
-  const scrollDown = () => {
-    if (containerRef.current) {
-      const cardHeight = (containerRef.current.firstChild as HTMLElement)
-        ?.clientHeight;
-      if (cardHeight) {
-        containerRef.current.scrollBy({
-          top: cardHeight / 2,
-          behavior: "smooth",
-        });
-      }
-    }
-  };
-
-  // Scroll up by one card's height
-  const scrollUp = () => {
-    if (containerRef.current) {
-      const cardHeight = (containerRef.current.firstChild as HTMLElement)
-        ?.clientHeight;
-      if (cardHeight) {
-        containerRef.current.scrollBy({
-          top: -cardHeight,
-          behavior: "smooth",
-        });
-      }
-    }
-  };
+const ProjectCard = ({
+  project,
+  index,
+}: {
+  project: Project;
+  index: number;
+}) => {
+  const isPrivate = project.codeLink === "Not Available";
+  const featured = Boolean(project.featured);
 
   return (
-    <div className="relative">
-      <h1 className="z-30 select-none pb-5 text-center text-xl uppercase tracking-widest">
-        PROJECTS
-      </h1>
-      {/* UP and DOWN Arrows */}
-      <div className="absolute top-[33px] right-[10.5px] z-[999] cursor-pointer rounded-full border-[2px] border-[#FFFFFF60] opacity-75 duration-500 hover:opacity-100 md:top-[582px] md:right-[720.5px]">
-        <BsArrowDownCircleFill
-          color="#FFFFFF60"
-          size={40}
-          onClick={scrollDown}
-        />
-      </div>
-      <div className="absolute top-[32px] right-[297px] z-[999] cursor-pointer rounded-full border-[2px] border-[#FFFFFF60] opacity-75 duration-500 hover:opacity-100 md:top-[32px] md:right-[720.5px]">
-        <BsArrowUpCircleFill color="#FFFFFF60" size={40} onClick={scrollUp} />
-      </div>
+    <motion.article
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.6, delay: (index % 2) * 0.1 }}
+      className={`glass group relative flex flex-col overflow-hidden transition-all duration-500 hover:-translate-y-1.5 hover:border-accent/40 hover:shadow-glow ${
+        featured ? "md:col-span-2 md:flex-row" : ""
+      }`}
+    >
+      {/* Image */}
       <div
-        ref={containerRef}
-        className="scroll-behavior-smooth relative mb-12 mt-2 flex h-[60vh] w-auto max-w-sm flex-col items-center gap-5 overflow-hidden rounded-md bg-transparent pb-5 text-center shadow-inner md:mx-auto md:mb-0 md:max-w-3xl md:border md:border-[#FFFFFF20] md:bg-[#FFFFFF10] md:px-10 md:scrollbar-thin md:scrollbar-none md:scrollbar-track-white/10 md:scrollbar-thumb-white/50"
+        className={`relative overflow-hidden bg-black ${
+          featured
+            ? "h-56 md:h-auto md:w-[45%] md:shrink-0"
+            : "h-48 sm:h-52"
+        }`}
       >
+        <Image
+          src={project.imageSrc}
+          className="h-full w-full object-cover object-top opacity-90 transition-transform duration-700 ease-out group-hover:scale-105 group-hover:opacity-100"
+          width={1200}
+          height={800}
+          alt={`${project.title} screenshot`}
+          priority={index < 2}
+        />
+        {/* Fade into the card body */}
+        <div
+          className={`pointer-events-none absolute inset-0 ${
+            featured
+              ? "bg-linear-to-t from-panel via-transparent to-transparent md:bg-linear-to-r md:from-transparent md:via-transparent md:to-panel/90"
+              : "bg-linear-to-t from-panel via-transparent to-transparent"
+          }`}
+        />
+        <span className="absolute left-4 top-4 rounded-full border border-white/10 bg-ink/70 px-2.5 py-1 font-display text-[10px] font-bold tracking-[0.25em] text-accent backdrop-blur">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        {featured && (
+          <span className="absolute right-4 top-4 rounded-full bg-accent px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-black">
+            Featured
+          </span>
+        )}
+      </div>
+
+      {/* Body */}
+      <div className="flex flex-1 flex-col p-5 md:p-6">
+        <h3 className="font-display text-xl font-bold tracking-tight text-white md:text-2xl">
+          {project.title}
+        </h3>
+        <p className="mt-2 text-sm leading-relaxed text-gray-400">
+          {project.description}
+        </p>
+
+        <ul className="mt-4 flex flex-wrap gap-1.5">
+          {project.stack.map((item) => (
+            <li
+              key={item}
+              className="rounded-md border border-white/10 bg-white/4 px-2 py-0.5 text-[11px] font-medium tracking-wide text-gray-300 transition-colors duration-300 group-hover:border-accent/30"
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-5 flex flex-wrap items-center gap-2 border-t border-white/5 pt-4">
+          <Link href={project.demoLink} target="_blank" className="btn-primary">
+            {isPrivate ? "Visit site" : "Live demo"}
+            <BsArrowUpRight size={14} />
+          </Link>
+          {isPrivate ? (
+            <span
+              className="btn-ghost cursor-not-allowed opacity-60"
+              title="Private codebase"
+            >
+              <BsLock size={13} />
+              Private
+            </span>
+          ) : (
+            <Link href={project.codeLink} target="_blank" className="btn-ghost">
+              <BsGithub size={15} />
+              Code
+            </Link>
+          )}
+        </div>
+      </div>
+    </motion.article>
+  );
+};
+
+const Projects = () => {
+  return (
+    <div className="mx-auto w-full max-w-6xl px-6 md:px-24 xl:px-6">
+      <div className="mb-10 flex flex-col gap-3 md:mb-14 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p className="eyebrow">01 — Selected work</p>
+          <h2 className="section-title mt-3">Projects</h2>
+        </div>
+        <p className="max-w-sm text-sm text-gray-500">
+          Production apps, side projects, and a few Web3 experiments. Hover a
+          card to peek closer.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
         {projectData.map((project, index) => (
-          <div
-            key={index}
-            className={`flex h-auto w-[350px] flex-col rounded-md border border-gray-600/50 bg-[#111111] md:h-[300px] md:w-auto md:flex-row ${
-              index === 0 ? "mt-4" : ""
-            }`}
-          >
-            <Image
-              src={project.imageSrc}
-              className="h-[200px] rounded-bl-md rounded-tl-md border-r border-gray-500/50 bg-black object-contain md:h-full md:w-full md:max-w-[250px] md:object-cover"
-              width={10000}
-              height={10000}
-              alt={`Project ${project.title} Image`}
-              priority={true}
-            />
-            <div className="flex w-full flex-col p-4">
-              <h3 className="pt-2 pl-4 text-left tracking-widest">
-                {project.title}
-              </h3>
-              <p className=" px-3 pt-2 pb-4 text-left text-xs text-gray-400">
-                {project.description}
-              </p>
-              <div className="flex flex-row flex-wrap items-center justify-center gap-x-2 gap-y-2">
-                {project.stack.map((item, index) => (
-                  <span
-                    className="rounded-full border border-[#FFFFFF50] bg-orange-700/30 px-2 py-1 text-xs"
-                    key={index}
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-              <div className="flex-1" />
-              <div className="flex items-center justify-center gap-20 px-5 pb-2 pt-5">
-                {project.codeLink === "Not Available" ? (
-                  <span className="cursor-not-allowed rounded-lg border border-gray-600/50 bg-black px-4 py-2 text-sm text-gray-500  duration-300">
-                    Private Codebase
-                  </span>
-                ) : (
-                  <Link
-                    href={project.codeLink}
-                    target="_blank"
-                    className="rounded-lg border border-gray-600/50 bg-black px-4 py-2 text-sm duration-300 hover:bg-black/10"
-                  >
-                    Code
-                  </Link>
-                )}
-                <Link
-                  href={project.demoLink}
-                  target="_blank"
-                  className="rounded-lg border border-gray-600/50 bg-gray-700 px-4 py-2 text-sm duration-300 hover:bg-gray-500"
-                >
-                  {project.codeLink === "Not Available" ? "Link" : "Demo"}
-                </Link>
-              </div>
-            </div>
-          </div>
+          <ProjectCard key={project.title} project={project} index={index} />
         ))}
       </div>
     </div>

@@ -2,50 +2,43 @@ import Link from "next/link";
 import React from "react";
 import { BsGithub, BsLinkedin, BsTwitter } from "react-icons/bs";
 import { SiLeetcode } from "react-icons/si";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
+
+const socials = [
+  { href: "https://github.com/brodyamcfarland", title: "Github", Icon: BsGithub },
+  {
+    href: "https://www.linkedin.com/in/brody-mcfarland-93a91b106/",
+    title: "LinkedIn",
+    Icon: BsLinkedin,
+  },
+  { href: "https://twitter.com/off2eth", title: "Twitter", Icon: BsTwitter },
+  { href: "https://leetcode.com/off2eth/", title: "LeetCode", Icon: SiLeetcode },
+];
 
 const SocialLinks = () => {
-     return (
-          <motion.nav
-               initial={{ opacity: 0 }}
-               animate={{ opacity: 1 }}
-               transition={{ duration: 1.25 }}
-               className="fixed top-2 left-[50%] z-50 flex -translate-x-1/2 scale-75 gap-16 border-white/50 px-4 py-2 md:left-[94%] md:top-[25%] md:scale-100 md:flex-col md:gap-4 md:border-l md:border-t-0 md:px-2 md:py-4 xl:left-[80%]"
-          >
-               <Link
-                    href="https://github.com/brodyamcfarland"
-                    target="_blank"
-                    className="rounded-full border-2 border-white/50 bg-white/5 p-3 backdrop-blur-2xl duration-300 hover:bg-purple-500/30"
-                    title="Github"
-               >
-                    <BsGithub size={20} />
-               </Link>
-               <Link
-                    href="https://www.linkedin.com/in/brody-mcfarland-93a91b106/"
-                    target="_blank"
-                    className="rounded-full border-2 border-white/50 bg-white/5 p-3 backdrop-blur-2xl duration-300 hover:bg-blue-700/30"
-                    title="LinkedIn"
-               >
-                    <BsLinkedin size={20} />
-               </Link>
-               <Link
-                    href="https://twitter.com/off2eth"
-                    target="_blank"
-                    className="rounded-full border-2 border-white/50 bg-white/5 p-3 backdrop-blur-2xl duration-300 hover:bg-blue-400/30"
-                    title="Twitter"
-               >
-                    <BsTwitter size={20} />
-               </Link>
-               <Link
-                    href="https://leetcode.com/off2eth/"
-                    target="_blank"
-                    className="rounded-full border-2 border-white/50 bg-white/5 p-3 backdrop-blur-2xl duration-300 hover:bg-yellow-500/30"
-                    title="LeetCode"
-               >
-                    <SiLeetcode size={20} />
-               </Link>
-          </motion.nav>
-     );
+  return (
+    <motion.nav
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 1.8 }}
+      aria-label="Social links"
+      className="flex items-center justify-center gap-3"
+    >
+      {socials.map(({ href, title, Icon }) => (
+        <Link
+          key={href}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={title}
+          aria-label={title}
+          className="icon-btn size-10"
+        >
+          <Icon size={18} />
+        </Link>
+      ))}
+    </motion.nav>
+  );
 };
 
 export default SocialLinks;

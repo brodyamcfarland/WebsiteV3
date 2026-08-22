@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import type { CSSProperties, Dispatch, SetStateAction } from "react";
 import ThreeFiber from "./ThreeFiber";
 
 const skillImages = [
@@ -33,50 +33,60 @@ interface Props {
   setSelectedSkill: Dispatch<SetStateAction<Skill | null>>;
 }
 
+// Leave a gap on the right-hand side (0°) for the "View in 3-D" button.
+const GAP_DEGREES = 40;
+const START = GAP_DEGREES / 2;
+const SWEEP = 360 - GAP_DEGREES;
+
+/**
+ * Feeds the ring-item CSS (see globals.css): --a is the final angle,
+ * --i the stagger index. The keyframes spin the item out from the center.
+ */
+const onRing = (angle: number, index: number) =>
+  ({ "--a": `${angle}deg`, "--i": index } as CSSProperties);
+
 const SkillRing = ({ selectedSkill, setSelectedSkill }: Props) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    const images = container?.querySelectorAll("img, a");
-
-    const radius = container?.clientWidth ? container.clientWidth / 3 : 0;
-    const totalImages = images?.length || 0;
-
-    if (images && totalImages > 0) {
-      images.forEach((img, i) => {
-        const angle = (i / totalImages) * 330;
-        const imageElement = img as HTMLImageElement; // Cast img to HTMLImageElement
-        imageElement.style.position = "absolute";
-        imageElement.style.left = "50%";
-        imageElement.style.top = "50%";
-        imageElement.style.transform = `rotate(${angle}deg) translate(${radius}px) rotate(-${angle}deg)`;
-        imageElement.style.transformOrigin = "0 0";
-      });
-    }
-  }, []);
+  const step = SWEEP / (skillImages.length - 1);
 
   return (
     <div
-      ref={containerRef}
-      className="absolute top-[60.5%] left-[45%] z-[9999] h-[350px] w-[350px] -translate-x-1/2 -translate-y-1/2 rounded-full md:left-[43%] md:top-[55.5%] md:h-[600px] md:w-[600px]"
+      className="pointer-events-none absolute inset-0 z-30 [--r:138px] md:[--r:236px]"
+      aria-label="Skills"
     >
-      <div className="flex items-center justify-center">
-        {skillImages.map((image, index) => (
-          <Image
-            key={index}
-            src={image.src}
-            width={50}
-            height={50}
-            alt={image.alt}
-            className={`heroSkillImages ${
-              image.src === selectedSkill?.src &&
-              "animate-pulse-slow border-white shadow-[0_0_15px_5px_rgba(255,255,255,0.6)]"
-            }`}
+      {skillImages.map((image, i) => {
+        const angle = START + i * step;
+        const selected = image.src === selectedSkill?.src;
+        return (
+          <button
+            key={image.src}
+            type="button"
             title={image.title}
+            aria-label={image.title}
+            aria-pressed={selected}
             onClick={() => setSelectedSkill(image)}
-          />
-        ))}
+            style={onRing(angle, i)}
+            className="ring-item pointer-events-auto absolute top-1/2 left-1/2 rounded-full"
+          >
+            <Image
+              src={image.src}
+              width={50}
+              height={50}
+              alt={image.alt}
+              className={`heroSkillImages ${
+                selected
+                  ? "animate-skill-tap border-accent opacity-100 shadow-[0_0_18px_4px_rgb(242_163_58/0.45)]"
+                  : ""
+              }`}
+            />
+          </button>
+        );
+      })}
+
+      {/* 3-D link sits in the gap at 0° (right-center) */}
+      <div
+        style={onRing(0, skillImages.length)}
+        className="ring-item pointer-events-auto absolute top-1/2 left-1/2"
+      >
         <ThreeFiber />
       </div>
     </div>
