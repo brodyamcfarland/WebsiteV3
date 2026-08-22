@@ -16,11 +16,7 @@ const skillImages = [
   { src: "/SUPABASE.jpg", title: "Supabase", alt: "Supabase Image" },
   { src: "/MONGODB_LOGO.png", title: "Mongo DB", alt: "Mongo DB Image" },
   { src: "/PRISMA.png", title: "Prisma", alt: "Prisma Image" },
-  { src: "/SQLLITELOGO.png", title: "SQL Lite", alt: "SQL Lite Image" },
   { src: "/SOLIDITY.png", title: "Solidity", alt: "Solidity Image" },
-  { src: "/ETHERSJS.png", title: "Ethers JS", alt: "ETHERS.js Image" },
-  { src: "/THIRDWEB.jpeg", title: "Third Web", alt: "Thirdweb Image" },
-  { src: "/HARDHAT.jpg", title: "Hardhat", alt: "Hardhat Image" },
 ];
 
 type Skill = {
@@ -53,6 +49,8 @@ const SkillRing = ({ selectedSkill, setSelectedSkill }: Props) => {
       className="pointer-events-none absolute inset-0 z-30 [--r:138px] md:[--r:236px]"
       aria-label="Skills"
     >
+      {/* Slow idle orbit; each icon counter-rotates so it stays upright */}
+      <div className="animate-orbit absolute inset-0">
       {skillImages.map((image, i) => {
         const angle = START + i * step;
         const selected = image.src === selectedSkill?.src;
@@ -67,20 +65,23 @@ const SkillRing = ({ selectedSkill, setSelectedSkill }: Props) => {
             style={onRing(angle, i)}
             className="ring-item pointer-events-auto absolute top-1/2 left-1/2 rounded-full"
           >
-            <Image
-              src={image.src}
-              width={50}
-              height={50}
-              alt={image.alt}
-              className={`heroSkillImages ${
-                selected
-                  ? "animate-skill-tap border-accent opacity-100 shadow-[0_0_18px_4px_rgb(242_163_58/0.45)]"
-                  : ""
-              }`}
-            />
+            <span className="animate-orbit-reverse block">
+              <Image
+                src={image.src}
+                width={50}
+                height={50}
+                alt={image.alt}
+                className={`heroSkillImages ${
+                  selected
+                    ? "animate-skill-tap border-accent opacity-100 shadow-[0_0_18px_4px_rgb(242_163_58/0.45)]"
+                    : ""
+                }`}
+              />
+            </span>
           </button>
         );
       })}
+      </div>
 
       {/* 3-D link sits in the gap at 0° (right-center) */}
       <div

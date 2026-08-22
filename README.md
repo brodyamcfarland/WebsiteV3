@@ -1,27 +1,29 @@
-# Next.js + Tailwind CSS Example
+# brodymcfarland.com
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.2)](https://tailwindcss.com/blog/tailwindcss-v3-2) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+Personal portfolio — Next.js 16 (Pages Router), React 19, Tailwind CSS 4, React Three Fiber, Motion.
 
-## Deploy your own
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+## Develop
 
 ```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build
 ```
 
-```bash
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
+## Contact form
+
+The form posts through [EmailJS](https://www.emailjs.com/). Set these in `.env.local` (and in your deploy target):
+
+```
+NEXT_PUBLIC_SERVICE_ID=
+NEXT_PUBLIC_TEMPLATE_ID=
+NEXT_PUBLIC_PUBLIC_KEY=
 ```
 
-```bash
-pnpm create next-app --example with-tailwindcss with-tailwindcss-app
-```
+## Structure
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+- `src/pages/index.tsx` — single page: hero, projects, contact
+- `src/components/SkillRing.tsx` — the orbiting skill icons (edit `skillImages` to change them)
+- `src/components/Projects.tsx` — `projectData` drives the project cards
+- `src/styles/globals.css` — Tailwind v4 `@theme` tokens and shared component classes
+- `public/og.png` — social preview image (1200×630)

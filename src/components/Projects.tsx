@@ -7,7 +7,7 @@ const projectData = [
   {
     title: "Starscript",
     description:
-      "Social Media website for screenwriters, actors, musicians, and collaborators. Available on ios and Android. Contains a post feed, reel system, real time messenger, commenting, Google OAuth, Video/Image Compression, and much more.",
+      "A social network for screenwriters, actors, and musicians to find collaborators, on web, iOS, and Android. I built the whole stack: post feed and reels, real-time messaging, comments, Google sign-in, and server-side video/image compression.",
     imageSrc: "/starscript.png",
     codeLink: "Not Available",
     stack: [
@@ -28,7 +28,7 @@ const projectData = [
   {
     title: "Breathe Ops",
     description:
-      "Subscription-based Medical Office Software Suite and Online Directory. Allows you to log daily activity with automatic finance calculations and generate leads and referrals for your practice. Contains a custom map directory, and exportable financial dashboard.",
+      "Subscription software for medical practices: log daily activity with automatic financial calculations, track leads and referrals, and get found through a map-based public directory. Includes an exportable finance dashboard.",
     stack: [
       "NextJS",
       "React Native",
@@ -46,7 +46,7 @@ const projectData = [
   {
     title: "3-D Portfolio",
     description:
-      "3-D version of portfolio. Shoot the ball at objects by clicking on the ball to interact with the next room.",
+      "An interactive 3-D take on this portfolio. Fire a physics-driven ball at objects to unlock each room and explore the work inside.",
     imageSrc: "/threefiber.png",
     stack: [
       "NextJS",
@@ -62,7 +62,7 @@ const projectData = [
   {
     title: "GET",
     description:
-      "E-Commerce Website, pretty much an amazon clone that uses only local storage instead of a database.",
+      "Amazon-style storefront with search, cart, and checkout flows. Persists the cart and order history client-side, no backend required.",
     imageSrc: "/GET.PNG",
     stack: ["NextJS", "Tailwind", "Typescript", "Redux", "Firebase"],
     codeLink: "https://github.com/brodyamcfarland/shopping-web-app",
@@ -71,7 +71,7 @@ const projectData = [
   {
     title: "Coin Camp",
     description:
-      "Web3 Crowdfunding Website built on top of the Polygon Mumbai test network.",
+      "Kickstarter-style crowdfunding where campaigns and pledges live on-chain, built on the Polygon Mumbai testnet with smart-contract wallet auth.",
     imageSrc: "/CoinCamp.PNG",
     stack: ["NextJS", "Typescript", "Tailwind", "Thirdweb"],
     codeLink: "https://github.com/brodyamcfarland/CoinCamp",
@@ -80,7 +80,7 @@ const projectData = [
   {
     title: "Siphon",
     description:
-      "HTML to JSON web scraping tool for easy text extraction. Built with NextJS, Cheerio, Typescript, and Tailwind.",
+      "Paste a URL, get clean JSON back. A lightweight scraping tool that extracts page text and structure for quick data pulls.",
     imageSrc: "/Siphon.png",
     stack: ["NextJS", "Tailwind", "Cheerio", "Typescript"],
     codeLink: "https://github.com/brodyamcfarland/Siphon",
@@ -89,7 +89,7 @@ const projectData = [
   {
     title: "Shipped",
     description:
-      "Online Shopping website built with NextJS, Typescript, Tailwind, Fakestore API, Next Auth, Stripe, React Redux, and Firebase.",
+      "Full e-commerce flow end to end: product catalog, authenticated accounts, Redux cart, and live Stripe checkout with order history stored in Firebase.",
     imageSrc: "/Shipped.PNG",
     stack: [
       "NextJS",
@@ -107,7 +107,7 @@ const projectData = [
   {
     title: "Connected",
     description:
-      "Web3 Social Media Website. In order to login, you must mint a non-transferable NFT via the instructions. This new coin will now replace your login credentials, when the token is detected, you will be logged in.",
+      "A social app with no passwords: you log in by minting a non-transferable (soulbound) NFT, and the site authenticates you whenever that token is detected in your wallet.",
     stack: [
       "React",
       "Typescript",

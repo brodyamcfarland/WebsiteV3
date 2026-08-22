@@ -4,9 +4,26 @@ import Hero from "../components/Hero";
 import Projects from "../components/Projects";
 import Contact from "../components/Contact";
 import { Canvas } from "@react-three/fiber";
+import { useEffect, useState } from "react";
 import StarryBackground from "../components/StarryBackground";
 
+const DESCRIPTION =
+  "Brody McFarland — full-stack web developer in Thousand Oaks, CA building products with Next.js, React Native, and Three.js.";
+
 const Home: NextPage = () => {
+  // Only animate the starfield while the hero is on screen (saves battery on phones)
+  const [heroVisible, setHeroVisible] = useState(true);
+  useEffect(() => {
+    const hero = document.getElementById("home");
+    if (!hero) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setHeroVisible(entry.isIntersecting),
+      { threshold: 0.05 }
+    );
+    io.observe(hero);
+    return () => io.disconnect();
+  }, []);
+
   return (
     <div className="grain relative min-h-dvh w-full bg-ink font-main text-white">
       <Head>
@@ -15,16 +32,28 @@ const Home: NextPage = () => {
           name="viewport"
           content="width=device-width, initial-scale=1, viewport-fit=cover"
         />
-        <meta
-          name="description"
-          content="Brody McFarland — web developer building full-stack products with Next.js, React Native, and Three.js."
-        />
+        <meta name="description" content={DESCRIPTION} />
+        <meta name="theme-color" content="#070708" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Brody McFarland — Full-Stack Web Developer" />
+        <meta property="og:description" content={DESCRIPTION} />
+        <meta property="og:image" content="/og.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Brody McFarland — Full-Stack Web Developer" />
+        <meta name="twitter:description" content={DESCRIPTION} />
+        <meta name="twitter:image" content="/og.png" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       {/* Fixed starfield background */}
       <div className="pointer-events-none fixed inset-0 z-0">
-        <Canvas style={{ background: "#070708" }}>
+        <Canvas
+          style={{ background: "#070708" }}
+          frameloop={heroVisible ? "always" : "never"}
+          dpr={[1, 1.5]}
+        >
           <StarryBackground />
         </Canvas>
         {/* Vignette + warm glow so content sits on a soft ground */}

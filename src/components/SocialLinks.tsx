@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import { BsGithub, BsLinkedin, BsTwitter } from "react-icons/bs";
+import { BsGithub, BsLinkedin, BsTwitterX } from "react-icons/bs";
 import { SiLeetcode } from "react-icons/si";
 import { motion } from "motion/react";
 
@@ -11,7 +11,7 @@ const socials = [
     title: "LinkedIn",
     Icon: BsLinkedin,
   },
-  { href: "https://twitter.com/off2eth", title: "Twitter", Icon: BsTwitter },
+  { href: "https://x.com/off2eth", title: "X", Icon: BsTwitterX },
   { href: "https://leetcode.com/off2eth/", title: "LeetCode", Icon: SiLeetcode },
 ];
 

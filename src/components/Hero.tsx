@@ -39,7 +39,7 @@ const Hero = () => {
         <h1 className="font-montserrat text-2xl font-semibold tracking-widest text-white uppercase md:text-4xl">
           Brody McFarland
         </h1>
-        <h2 className="font-montserrat mt-2 pb-4 text-xs tracking-wider text-gray-500 uppercase md:pb-6 md:text-sm">
+        <h2 className="font-montserrat mt-2 pb-4 text-xs tracking-wider text-gray-400 uppercase md:pb-6 md:text-sm">
           Full-Stack Web Developer
         </h2>
       </motion.div>
@@ -61,7 +61,7 @@ const Hero = () => {
           className="h-full w-full rounded-full object-cover opacity-80 shadow-[0_0_60px_-10px_rgba(242,163,58,0.35)] duration-1000"
           width={1000}
           height={1000}
-          alt="Hero Image"
+          alt="Portrait of Brody McFarland"
           priority={true}
         />
       </motion.div>
@@ -75,7 +75,7 @@ const Hero = () => {
       >
         <p
           aria-live="polite"
-          className="flex min-h-9 items-center justify-center text-xs leading-normal tracking-widest text-gray-500"
+          className="flex min-h-9 items-center justify-center text-xs leading-normal tracking-widest text-gray-400"
         >
           {selectedSkill ? (
             <span className="text-accent-soft font-display animate-pulse-slow text-lg leading-normal font-bold tracking-[0.2em] md:text-2xl">
@@ -86,6 +86,10 @@ const Hero = () => {
           )}
         </p>
         <SocialLinks />
+        <p className="max-w-md text-sm leading-relaxed text-gray-400">
+          I build and ship full-stack products — from production social and
+          medical-office apps to 3-D experiments. Currently open to new roles.
+        </p>
         <div className="flex flex-wrap items-center justify-center gap-3">
           <Link href="#projects" className="btn-primary group">
             See my work
