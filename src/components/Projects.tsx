@@ -57,7 +57,7 @@ const projectData = [
       "CannonJS",
     ],
     codeLink: "https://github.com/brodyamcfarland/3D-Website",
-    demoLink: "https://3d-website-delta-ten.vercel.app/",
+    demoLink: "https://3d.brodymcfarland.com/",
   },
   {
     title: "GET",
