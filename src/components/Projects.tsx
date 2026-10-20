@@ -44,6 +44,41 @@ const projectData = [
     featured: true,
   },
   {
+    title: "Bitboard",
+    description:
+      "A free browser skateboarding and snowboarding game on procedurally generated maps, in low-res 3D pixel art. Custom skate physics, stick-flick trick recognition, grinds on any edge, day/night and weather, with a desktop build headed to Steam.",
+    imageSrc: "/bitboard.png",
+    stack: [
+      "Three.js",
+      "Typescript",
+      "Vite",
+      "Cloudflare Workers",
+      "Stripe",
+      "Vitest",
+    ],
+    codeLink: "Not Available",
+    demoLink: "https://bitboard.world/",
+    featured: true,
+  },
+  {
+    title: "Bigger.sol",
+    description:
+      "PvP extraction game: grow, hunt, and get out alive. The live demo runs bot matches in the browser; the full build adds an authoritative WebSocket game server with region matchmaking and a Solana escrow program in Rust/Anchor. Devnet and demo credits only.",
+    imageSrc: "/bigger.png",
+    stack: [
+      "NextJS",
+      "Typescript",
+      "WebSockets",
+      "Solana",
+      "Rust / Anchor",
+      "Redis",
+      "Docker",
+    ],
+    codeLink: "Not Available",
+    demoLink: "https://bigger-sol.vercel.app/",
+    featured: true,
+  },
+  {
     title: "3-D Portfolio",
     description:
       "An interactive 3-D take on this portfolio. Fire a physics-driven ball at objects to unlock each room and explore the work inside.",
