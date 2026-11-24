@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "sync:commits": "node scripts/sync-commits.mjs",
+    "og": "node scripts/make-og.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

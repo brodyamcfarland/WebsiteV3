@@ -4,25 +4,13 @@ import Hero from "../components/Hero";
 import Projects from "../components/Projects";
 import Contact from "../components/Contact";
 import { Canvas } from "@react-three/fiber";
-import { useEffect, useState } from "react";
+
 import StarryBackground from "../components/StarryBackground";
 
 const DESCRIPTION =
   "Brody McFarland — full-stack web developer in Thousand Oaks, CA building products with Next.js, React Native, and Three.js.";
 
 const Home: NextPage = () => {
-  // Only animate the starfield while the hero is on screen (saves battery on phones)
-  const [heroVisible, setHeroVisible] = useState(true);
-  useEffect(() => {
-    const hero = document.getElementById("home");
-    if (!hero) return;
-    const io = new IntersectionObserver(
-      ([entry]) => setHeroVisible(entry.isIntersecting),
-      { threshold: 0.05 }
-    );
-    io.observe(hero);
-    return () => io.disconnect();
-  }, []);
 
   return (
     <div className="grain relative min-h-dvh w-full bg-ink font-main text-white">
@@ -47,24 +35,25 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* Fixed starfield background */}
+      {/* Fixed background: nebula + GPU particle flow field (runs the whole
+          page; FlowField scales its particle count down if frames get slow) */}
       <div className="pointer-events-none fixed inset-0 z-0">
         <Canvas
           style={{ background: "#070708" }}
-          frameloop={heroVisible ? "always" : "never"}
-          dpr={[1, 1.5]}
+          dpr={[1, 1.25]}
+          gl={{ antialias: false, powerPreference: "high-performance" }}
         >
           <StarryBackground />
         </Canvas>
         {/* Vignette + warm glow so content sits on a soft ground */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(242,163,58,0.08),transparent_55%),radial-gradient(ellipse_at_bottom,rgba(0,0,0,0.8),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(91,156,255,0.08),transparent_55%),radial-gradient(ellipse_at_bottom,rgba(0,0,0,0.8),transparent_60%)]" />
       </div>
 
 
       <main className="relative z-10 flex flex-col items-center">
         <section
           id="home"
-          className="flex min-h-dvh w-full scroll-mt-0 flex-col items-center justify-center overflow-hidden pt-12 pb-10 md:pt-0 md:pb-0"
+          className="flex min-h-dvh w-full scroll-mt-0 flex-col items-center justify-center-safe overflow-hidden pt-12 pb-10 md:py-14"
         >
           <Hero />
         </section>

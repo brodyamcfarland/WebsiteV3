@@ -3,6 +3,7 @@ import { AiFillPhone, AiOutlineMail } from "react-icons/ai";
 import { BiMap } from "react-icons/bi";
 import { BsSend } from "react-icons/bs";
 import emailjs from "@emailjs/browser";
+import { track } from "../lib/track";
 import toast from "react-hot-toast";
 import { motion } from "motion/react";
 
@@ -14,7 +15,7 @@ const details = [
     value: "brodyamcfarland@gmail.com",
     href: "mailto:brodyamcfarland@gmail.com",
   },
-  { Icon: BiMap, label: "Location", value: "Thousand Oaks, CA 91360" },
+  { Icon: BiMap, label: "Location", value: "Thousand Oaks, CA" },
 ];
 
 const Contact = () => {
@@ -41,6 +42,8 @@ const Contact = () => {
       .then(
         () => {
           toast.success(`Email has been successfully sent.`);
+          track("contact_sent");
+          formEl.reset(); // only clear once it actually sent
         },
         (error) => {
           toast.error(`Error: ${error.text}`);
@@ -48,7 +51,6 @@ const Contact = () => {
         }
       )
       .finally(() => setSending(false));
-    formEl.reset();
   };
 
   return (
@@ -63,10 +65,10 @@ const Contact = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.7 }}
-        className="glass grid grid-cols-1 overflow-hidden md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]"
+        className="glass grid grid-cols-1 overflow-hidden lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]"
       >
         {/* Info column */}
-        <div className="relative flex flex-col justify-between gap-8 border-b border-white/5 bg-linear-to-br from-accent/10 via-transparent to-transparent p-6 md:border-b-0 md:border-r md:p-8">
+        <div className="relative flex flex-col justify-between gap-8 border-b border-white/5 bg-linear-to-br from-white/4 via-transparent to-transparent p-6 lg:border-b-0 lg:border-r md:p-8">
           <div>
             <h3 className="font-display text-2xl font-bold tracking-tight">
               Let&apos;s build something.

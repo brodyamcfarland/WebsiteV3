@@ -9,12 +9,12 @@
 
   --color-ink: #070708;
   --color-panel: #0e0e11;
-  --color-accent: #f2a33a;
-  --color-accent-soft: #ffcc80;
-  --color-accent-dim: #a8651a;
+  --color-accent: #5b9cff;
+  --color-accent-soft: #b4d2ff;
+  --color-accent-dim: #2f5fb3;
 
-  --shadow-glow: 0 0 0 1px rgb(242 163 58 / 0.35),
-    0 0 30px -5px rgb(242 163 58 / 0.35);
+  --shadow-glow: 0 0 0 1px rgb(91 156 255 / 0.35),
+    0 0 30px -5px rgb(91 156 255 / 0.35);
   --shadow-card: 0 20px 50px -20px rgb(0 0 0 / 0.9),
     inset 0 1px 0 rgb(255 255 255 / 0.06);
 
@@ -67,7 +67,7 @@
 @layer components {
   /* "01 — Selected work" label with a short accent rule */
   .eyebrow {
-    @apply font-main text-accent flex items-center gap-3 text-[11px] font-semibold tracking-[0.35em] uppercase;
+    @apply font-main text-gray-400 flex items-center gap-3 text-[11px] font-semibold tracking-[0.35em] uppercase;
     &::before {
       content: "";
       @apply bg-accent/70 h-px w-8;
@@ -88,23 +88,36 @@
     @apply hover:border-white/25 focus:border-accent/70 focus:bg-white/6 focus:shadow-glow;
   }
 
+  .skill-chip {
+    @apply relative block size-[34px] cursor-pointer rounded-full md:size-[54px];
+  }
+  /* 1.8x the chip (CHIP_PAD in SkillRing.tsx) so scattered dots aren't clipped */
+  .skill-particles {
+    @apply pointer-events-none absolute top-1/2 left-1/2 size-[180%] max-w-none -translate-x-1/2 -translate-y-1/2 transition-[filter] duration-300;
+  }
+  .skill-chip:hover .skill-particles {
+    @apply drop-shadow-[0_0_8px_rgb(91_156_255/0.6)];
+  }
+  .skill-particles-on {
+    @apply drop-shadow-[0_0_10px_rgb(91_156_255/0.7)];
+  }
   .heroSkillImages {
     @apply size-[30px] cursor-pointer rounded-full border border-white/20 bg-black object-contain opacity-80 duration-300 md:size-[50px];
-    @apply hover:border-accent hover:opacity-100 hover:shadow-[0_0_18px_4px_rgb(242_163_58/0.45)];
+    @apply hover:border-accent hover:opacity-100 hover:shadow-[0_0_18px_4px_rgb(91_156_255/0.45)];
     @apply active:scale-75 active:duration-150;
   }
 
   /* Circular icon button for nav + socials */
   .icon-btn {
     @apply flex size-11 items-center justify-center rounded-full border border-white/10 bg-white/3 text-gray-300 transition-all duration-300;
-    @apply hover:border-accent/60 hover:bg-accent/10 hover:text-white;
+    @apply hover:border-white/30 hover:bg-white/8 hover:text-white;
   }
   .icon-btn-active {
     @apply border-accent/70 bg-accent/20 text-accent shadow-glow;
   }
 
   .btn-primary {
-    @apply bg-accent inline-flex items-center justify-center gap-2 rounded-full px-5 py-2 text-sm font-semibold text-black transition-all duration-300;
+    @apply bg-white inline-flex items-center justify-center gap-2 rounded-full px-5 py-2 text-sm font-semibold text-black transition-all duration-300;
     @apply hover:bg-accent-soft hover:shadow-glow;
   }
   .btn-ghost {
@@ -161,4 +174,97 @@
 
 @utility safe-bottom {
   padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ---------- Custom cursor (see components/Cursor.tsx; mouse only) ---------- */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  pointer-events: none;
+  border-radius: 9999px;
+  opacity: 0;
+  transition: opacity 0.3s, background-color 0.3s, border-color 0.3s;
+}
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: #fff;
+}
+.cursor-ring {
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgb(255 255 255 / 0.45);
+}
+.cursor-ring-active {
+  background: rgb(91 156 255 / 0.12);
+  border-color: rgb(91 156 255 / 0.9);
+}
+.cursor-visible .cursor-dot,
+.cursor-visible .cursor-ring {
+  opacity: 1;
+}
+.cursor-visible.cursor-text .cursor-dot,
+.cursor-visible.cursor-text .cursor-ring {
+  opacity: 0;
+}
+.has-cursor,
+.has-cursor * {
+  cursor: none !important;
+}
+.has-cursor :is(input, textarea, select, [contenteditable="true"]) {
+  cursor: text !important;
+}
+/* Magnetic buttons ease back into place */
+.btn-primary,
+.btn-ghost,
+.icon-btn {
+  transition-property: all;
+}
+
+/* ---------- Liquid hover canvas (components/LiquidImage.tsx) ---------- */
+.liquid-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* ---------- Project detail morph (Projects.tsx + ProjectModal.tsx) ---------- */
+::view-transition-group(project-hero),
+::view-transition-group(project-title) {
+  animation-duration: 0.55s;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+::view-transition-old(project-hero),
+::view-transition-new(project-hero) {
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.35s;
+}
+.project-backdrop {
+  animation: fade-in 0.35s ease-out both;
+}
+.project-detail {
+  animation: rise-in 0.5s 0.12s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+}
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(14px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-backdrop,
+  .project-detail {
+    animation: none;
+  }
 }

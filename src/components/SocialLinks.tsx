@@ -1,8 +1,8 @@
 import Link from "next/link";
 import React from "react";
-import { BsGithub, BsLinkedin, BsTwitterX } from "react-icons/bs";
-import { SiLeetcode } from "react-icons/si";
+import { BsGithub, BsLinkedin } from "react-icons/bs";
 import { motion } from "motion/react";
+import { track } from "../lib/track";
 
 const socials = [
   { href: "https://github.com/brodyamcfarland", title: "Github", Icon: BsGithub },
@@ -11,8 +11,6 @@ const socials = [
     title: "LinkedIn",
     Icon: BsLinkedin,
   },
-  { href: "https://x.com/off2eth", title: "X", Icon: BsTwitterX },
-  { href: "https://leetcode.com/off2eth/", title: "LeetCode", Icon: SiLeetcode },
 ];
 
 const SocialLinks = () => {
@@ -31,6 +29,7 @@ const SocialLinks = () => {
           target="_blank"
           rel="noopener noreferrer"
           title={title}
+          onClick={() => track("social_click", { network: title.toLowerCase() })}
           aria-label={title}
           className="icon-btn size-10"
         >
