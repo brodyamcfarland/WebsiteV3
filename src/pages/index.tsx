@@ -10,7 +10,7 @@ import { isPhone } from "../lib/device";
 import StarryBackground from "../components/StarryBackground";
 
 const DESCRIPTION =
-  "Brody McFarland — full-stack web developer in Thousand Oaks, CA building products with Next.js, React Native, and Three.js.";
+  "Brody McFarland — software engineer in Thousand Oaks, CA building products with Next.js, React Native, and Three.js.";
 
 const Home: NextPage = () => {
   // Phones render the background at 1x pixel density (it is soft dust anyway)
@@ -28,13 +28,13 @@ const Home: NextPage = () => {
         <meta name="description" content={DESCRIPTION} />
         <meta name="theme-color" content="#070708" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Brody McFarland — Full-Stack Web Developer" />
+        <meta property="og:title" content="Brody McFarland — Software Engineer" />
         <meta property="og:description" content={DESCRIPTION} />
         <meta property="og:image" content="/og.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Brody McFarland — Full-Stack Web Developer" />
+        <meta name="twitter:title" content="Brody McFarland — Software Engineer" />
         <meta name="twitter:description" content={DESCRIPTION} />
         <meta name="twitter:image" content="/og.png" />
         <link rel="icon" href="/favicon.ico" />

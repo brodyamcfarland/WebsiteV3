@@ -77,7 +77,7 @@ const svg = `
   <line x1="80" y1="214" x2="124" y2="214" stroke="#5b9cff" stroke-width="2"/>
   <text x="140" y="221" font-family="${font}" font-size="19" font-weight="600" letter-spacing="5" fill="#9aa3b2">OPEN TO NEW ROLES</text>
   <text x="78" y="305" font-family="${font}" font-size="68" font-weight="700" letter-spacing="5" fill="#ffffff">BRODY MCFARLAND</text>
-  <text x="80" y="360" font-family="${font}" font-size="25" font-weight="400" letter-spacing="7" fill="#c4c9d2">FULL-STACK WEB DEVELOPER</text>
+  <text x="80" y="360" font-family="${font}" font-size="25" font-weight="400" letter-spacing="7" fill="#c4c9d2">SOFTWARE ENGINEER</text>
   <text x="80" y="420" font-family="${font}" font-size="20" fill="#7d8594">Next.js · React Native · Three.js · Node · Postgres</text>
 </svg>`;
 

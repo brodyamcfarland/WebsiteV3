@@ -50,7 +50,7 @@ const Hero = () => {
           Brody McFarland
         </h1>
         <h2 className="font-montserrat short:pb-2 mt-2 pb-4 text-xs tracking-wider text-gray-400 uppercase md:pb-6 md:text-sm">
-          Full-Stack Web Developer
+          Software Engineer
         </h2>
       </motion.div>
 
@@ -59,7 +59,7 @@ const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1 }}
-        className="short:col-start-1 short:row-span-2 short:row-start-1 short:mx-10 short:my-0 short:size-52 relative z-20 my-10 flex size-[min(calc((100vw-44px)/1.32),24rem,max(10rem,calc(100svh-397px)))] items-center justify-center rounded-full md:my-12 md:size-96 2xl:my-16 2xl:size-[30rem]"
+        className="short:col-start-1 short:row-span-2 short:row-start-1 short:mx-10 short:my-0 short:size-52 relative z-20 my-10 flex size-[min(calc((100vw-44px)/1.32),24rem,max(10rem,calc(100svh-320px)))] items-center justify-center rounded-full md:my-12 md:size-96 2xl:my-16 2xl:size-[30rem]"
       >
         <SkillRing
           selectedSkill={selectedSkill}
@@ -88,10 +88,6 @@ const Hero = () => {
         className="short:col-start-2 short:row-start-2 short:mt-3 short:items-start short:gap-3 short:self-start relative z-30 mt-6 flex flex-col items-center gap-4 md:mt-14"
       >
         <SocialLinks />
-        <p className="max-w-md text-sm leading-relaxed text-gray-400">
-          I build and ship full-stack products — from production social and
-          medical-office apps to 3-D experiments. Currently open to new roles.
-        </p>
         <div className="short:justify-start flex flex-wrap items-center justify-center gap-3">
           <Link href="#projects" className="btn-primary group">
             See my work

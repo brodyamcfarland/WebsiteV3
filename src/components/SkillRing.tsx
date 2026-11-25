@@ -2,20 +2,32 @@ import { useEffect, useRef, type Dispatch, type SetStateAction } from "react";
 import ThreeFiber from "./ThreeFiber";
 import { track } from "../lib/track";
 
+// Brand SVGs (EXPRESS, REDUX, ...) come from Simple Icons via react-icons/si
 const skillImages = [
   { src: "/NEXTJS.png", title: "Next JS", alt: "NextJS Image" },
   { src: "/CLAUDE.svg", title: "Claude Code", alt: "Claude Image" },
   { src: "/REACT.png", title: "React JS", alt: "React Image" },
+  { src: "/EXPRESS.svg", title: "Express", alt: "Express Image" },
   { src: "/REACTNATIVE.png", title: "React Native", alt: "React Native Image" },
+  { src: "/REDIS.svg", title: "Redis", alt: "Redis Image" },
   { src: "/TS.png", title: "Typescript", alt: "Typescript Image" },
+  { src: "/DOCKER.svg", title: "Docker", alt: "Docker Image" },
   { src: "/NODE.png", title: "Node JS", alt: "Node JS Image" },
+  { src: "/REDUX.svg", title: "Redux", alt: "Redux Image" },
   { src: "/TAILWIND.png", title: "Tailwind CSS", alt: "Tailwind CSS Image" },
+  { src: "/SOCKETIO.svg", title: "Socket.io", alt: "Socket.io Image" },
   { src: "/THREEJS.png", title: "Three JS", alt: "THREE JS Image" },
+  { src: "/STRIPE.svg", title: "Stripe", alt: "Stripe Image" },
   { src: "/GITLOGO.png", title: "GIT", alt: "GIT Image" },
+  { src: "/JAVASCRIPT.svg", title: "JavaScript", alt: "JavaScript Image" },
   { src: "/POSTGRES.png", title: "Postgres", alt: "Postgres Image" },
+  { src: "/VITE.svg", title: "Vite", alt: "Vite Image" },
   { src: "/FIREBASE.png", title: "Firebase", alt: "Firebase Image" },
+  { src: "/CLOUDFLARE.svg", title: "Cloudflare Workers", alt: "Cloudflare Workers Image" },
   { src: "/SUPABASE.jpg", title: "Supabase", alt: "Supabase Image" },
+  { src: "/SOLANA.svg", title: "Solana", alt: "Solana Image" },
   { src: "/MONGODB_LOGO.png", title: "Mongo DB", alt: "Mongo DB Image" },
+  { src: "/RUST.svg", title: "Rust", alt: "Rust Image" },
   { src: "/PRISMA.png", title: "Prisma", alt: "Prisma Image" },
   { src: "/SOLIDITY.png", title: "Solidity", alt: "Solidity Image" },
 ];

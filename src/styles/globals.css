@@ -108,7 +108,7 @@
   }
 
   .skill-chip {
-    @apply relative block size-[34px] cursor-pointer rounded-full md:size-[54px];
+    @apply relative block size-[30px] cursor-pointer rounded-full md:size-[44px];
   }
   /* 1.8x the chip (CHIP_PAD in SkillRing.tsx) so scattered dots aren't clipped */
   .skill-particles {
