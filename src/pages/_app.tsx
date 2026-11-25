@@ -4,10 +4,18 @@ import type { AppProps } from "next/app";
 import Script from "next/script";
 import { initAnalytics } from "../lib/track";
 import Cursor from "../components/Cursor";
+import { useEffect } from "react";
 
 initAnalytics();
 
 function MyApp({ Component, pageProps }: AppProps) {
+  // iOS Safari ignores user-scalable=no; block its pinch gesture directly
+  useEffect(() => {
+    const stop = (e: Event) => e.preventDefault();
+    document.addEventListener("gesturestart", stop);
+    return () => document.removeEventListener("gesturestart", stop);
+  }, []);
+
   return (
     <>
       <Component {...pageProps} />

@@ -23,7 +23,7 @@ const Home: NextPage = () => {
         <title>Brody McFarland</title>
         <meta
           name="viewport"
-          content="width=device-width, initial-scale=1, viewport-fit=cover"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
         />
         <meta name="description" content={DESCRIPTION} />
         <meta name="theme-color" content="#070708" />
@@ -60,7 +60,7 @@ const Home: NextPage = () => {
       <main className="relative z-10 flex flex-col items-center pr-[env(safe-area-inset-right)] pl-[env(safe-area-inset-left)]">
         <section
           id="home"
-          className="flex min-h-svh w-full scroll-mt-0 flex-col items-center justify-center-safe overflow-hidden pt-12 pb-10 md:py-14"
+          className="flex min-h-svh w-full scroll-mt-0 flex-col items-center justify-center-safe overflow-hidden pt-8 pb-8 md:py-14"
         >
           <Hero />
         </section>

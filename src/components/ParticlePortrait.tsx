@@ -187,7 +187,7 @@ function Points({ sample, onReady }: { sample: Sample; onReady: () => void }) {
     u.uTime.value = t;
     u.uIntro.value = Math.min(1, t / 2.4);
     u.uScale.value = portrait;
-    u.uPx.value = Math.max(1.6, (portrait / Math.sqrt(sample.count)) * 1.25) * state.viewport.dpr;
+    u.uPx.value = Math.max(1.1, (portrait / Math.sqrt(sample.count)) * 1.25) * state.viewport.dpr;
     const scatter = Math.min(1, Math.max(0, window.scrollY / (window.innerHeight * 0.75)));
     u.uScatter.value += (scatter - u.uScatter.value) * Math.min(1, dt * 6);
     u.uMouse.value.set(pointer.current.x, pointer.current.y);
@@ -222,7 +222,7 @@ export default function ParticlePortrait({ onReady }: { onReady: () => void }) {
   useEffect(() => {
     let alive = true;
     const mobile = isPhone() || window.matchMedia("(max-width: 767px)").matches;
-    samplePortrait(mobile ? 150 : 165)
+    samplePortrait(mobile ? 200 : 165)
       .then((s) => alive && setSample(s))
       .catch(() => {}); // keep the static image if anything goes wrong
     return () => {

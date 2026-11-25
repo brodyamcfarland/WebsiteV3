@@ -44,7 +44,7 @@ const Hero = () => {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="short:col-start-2 short:row-start-1 short:mb-0 short:self-end relative z-30 mb-4 md:mb-0"
+        className="short:col-start-2 short:row-start-1 short:mb-0 short:self-end relative z-30 mb-2 md:mb-0"
       >
         <h1 className="font-montserrat short:text-2xl text-2xl font-semibold tracking-widest text-white uppercase md:text-4xl 2xl:text-5xl">
           Brody McFarland
@@ -59,7 +59,7 @@ const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1 }}
-        className="short:col-start-1 short:row-span-2 short:row-start-1 short:mx-10 short:my-0 short:size-52 relative z-20 my-12 flex size-[min(calc((100vw-44px)/1.32),24rem)] items-center justify-center rounded-full md:my-12 md:size-96 2xl:my-16 2xl:size-[30rem]"
+        className="short:col-start-1 short:row-span-2 short:row-start-1 short:mx-10 short:my-0 short:size-52 relative z-20 my-10 flex size-[min(calc((100vw-44px)/1.32),24rem,max(10rem,calc(100svh-397px)))] items-center justify-center rounded-full md:my-12 md:size-96 2xl:my-16 2xl:size-[30rem]"
       >
         <SkillRing
           selectedSkill={selectedSkill}
@@ -83,18 +83,8 @@ const Hero = () => {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1.6 }}
-        className="short:col-start-2 short:row-start-2 short:mt-3 short:items-start short:gap-3 short:self-start relative z-30 mt-6 flex flex-col items-center gap-4 md:mt-10"
+        className="short:col-start-2 short:row-start-2 short:mt-3 short:items-start short:gap-3 short:self-start relative z-30 mt-6 flex flex-col items-center gap-4 md:mt-14"
       >
-        <p
-          aria-live="polite"
-          className="short:justify-start flex min-h-9 items-center justify-center text-xs leading-normal tracking-widest text-gray-400"
-        >
-          {selectedSkill && (
-            <span className="text-white font-display animate-pulse-slow text-lg leading-normal font-bold tracking-[0.2em] md:text-2xl">
-              {selectedSkill.title}
-            </span>
-          )}
-        </p>
         <SocialLinks />
         <p className="max-w-md text-sm leading-relaxed text-gray-400">
           I build and ship full-stack products — from production social and
