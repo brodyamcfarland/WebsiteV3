@@ -3,7 +3,6 @@ import { motion } from "motion/react";
 import SkillRing from "./SkillRing";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import { useTypewriter } from "./useTypewriter";
 import Link from "next/link";
 import { BsArrowDown, BsDownload } from "react-icons/bs";
 import SocialLinks from "./SocialLinks";
@@ -35,7 +34,6 @@ type Skill = {
 
 const Hero = () => {
   const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
-  const typedSkill = useTypewriter(selectedSkill?.title ?? "", 70);
   const fancy = useFancyPortrait();
   const [particlesReady, setParticlesReady] = useState(false);
   return (
@@ -61,7 +59,7 @@ const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1 }}
-        className="short:col-start-1 short:row-span-2 short:row-start-1 short:mx-10 short:my-0 short:size-52 relative z-20 my-12 flex size-52 items-center justify-center rounded-full md:my-12 md:size-96 2xl:my-16 2xl:size-[30rem]"
+        className="short:col-start-1 short:row-span-2 short:row-start-1 short:mx-10 short:my-0 short:size-52 relative z-20 my-12 flex size-[min(calc((100vw-44px)/1.32),24rem)] items-center justify-center rounded-full md:my-12 md:size-96 2xl:my-16 2xl:size-[30rem]"
       >
         <SkillRing
           selectedSkill={selectedSkill}
@@ -91,12 +89,10 @@ const Hero = () => {
           aria-live="polite"
           className="short:justify-start flex min-h-9 items-center justify-center text-xs leading-normal tracking-widest text-gray-400"
         >
-          {selectedSkill ? (
+          {selectedSkill && (
             <span className="text-white font-display animate-pulse-slow text-lg leading-normal font-bold tracking-[0.2em] md:text-2xl">
-              {typedSkill}
+              {selectedSkill.title}
             </span>
-          ) : (
-            "TAP A SKILL TO REVEAL IT"
           )}
         </p>
         <SocialLinks />

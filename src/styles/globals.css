@@ -83,7 +83,9 @@
 
   /* Frosted panel used by cards and the contact block */
   .glass {
-    @apply shadow-card rounded-2xl border border-white/10 bg-white/4 backdrop-blur-md;
+    /* Touch devices get a solid tint instead of a live blur: re-blurring the
+       animated background under every card each frame flickers on iOS */
+    @apply shadow-card rounded-2xl border border-white/10 bg-[#101114]/90 pointer-fine:bg-white/4 pointer-fine:backdrop-blur-md;
   }
 
   .contactInput {

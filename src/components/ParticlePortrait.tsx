@@ -97,6 +97,11 @@ const vertex = /* glsl */ `
     gl_PointSize = uPx * (0.75 + aLum * 0.7) * (1.0 + uScatter * 0.6);
     vLum = aLum;
     vAlpha = (0.12 + aLum * 0.6) * (1.0 - uScatter * 0.85) * smoothstep(0.0, 0.25, uIntro);
+    // Fade out in a circle before the canvas's square edge, so particles
+    // flying in or scattering never reveal a hard box outline
+    // (the assembled figure spans about +/-0.68 of the canvas, so it's untouched)
+    vec2 ndc = abs(gl_Position.xy / gl_Position.w);
+    vAlpha *= smoothstep(1.0, 0.72, max(ndc.x, ndc.y)) * smoothstep(1.3, 0.97, length(ndc));
   }
 `;
 

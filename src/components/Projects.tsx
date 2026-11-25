@@ -138,7 +138,7 @@ const ProjectCard = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.6, delay: (index % 2) * 0.1 }}
-      className={`glass group relative flex flex-col overflow-hidden transition-all duration-500 hover:-translate-y-1.5 hover:border-accent/40 hover:shadow-glow ${
+      className={`glass group relative flex flex-col overflow-hidden transition-[translate,border-color,box-shadow] duration-500 hover:-translate-y-1.5 hover:border-accent/40 hover:shadow-glow ${
         featured ? "md:col-span-2 md:flex-row" : ""
       }`}
     >
@@ -167,7 +167,7 @@ const ProjectCard = ({
               : "bg-linear-to-t from-panel via-transparent to-transparent"
           }`}
         />
-        <span className="absolute left-4 top-4 rounded-full border border-white/10 bg-ink/70 px-2.5 py-1 font-display text-[10px] font-bold tracking-[0.25em] text-gray-300 backdrop-blur">
+        <span className="absolute left-4 top-4 rounded-full border border-white/10 bg-ink/80 px-2.5 py-1 font-display text-[10px] font-bold tracking-[0.25em] text-gray-300">
           {String(index + 1).padStart(2, "0")}
         </span>
         {/* Whole screenshot opens the detail view */}
