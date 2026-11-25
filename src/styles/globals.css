@@ -1,6 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Syne:wght@500;700;800&family=Manrope:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 
+/* Phones held sideways: short, wide screens get a two-column hero */
+@custom-variant short (@media (orientation: landscape) and (max-height: 520px));
+
 /* ---------- Design tokens (Tailwind v4: CSS-first config) ---------- */
 @theme {
   --font-main: "Manrope", "Montserrat", sans-serif;

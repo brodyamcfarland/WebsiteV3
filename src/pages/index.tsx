@@ -4,6 +4,8 @@ import Hero from "../components/Hero";
 import Projects from "../components/Projects";
 import Contact from "../components/Contact";
 import { Canvas } from "@react-three/fiber";
+import { useEffect, useState } from "react";
+import { isPhone } from "../lib/device";
 
 import StarryBackground from "../components/StarryBackground";
 
@@ -11,6 +13,9 @@ const DESCRIPTION =
   "Brody McFarland — full-stack web developer in Thousand Oaks, CA building products with Next.js, React Native, and Three.js.";
 
 const Home: NextPage = () => {
+  // Phones render the background at 1x pixel density (it is soft dust anyway)
+  const [phone, setPhone] = useState(false);
+  useEffect(() => setPhone(isPhone()), []);
 
   return (
     <div className="grain relative min-h-dvh w-full bg-ink font-main text-white">
@@ -35,25 +40,27 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* Fixed background: nebula + GPU particle flow field (runs the whole
+      {/* Fixed background: nebula + GPU particle flow field. Sized to the
+          *large* viewport height (lvh) so it never resizes when a phone's
+          address bar slides in and out while scrolling. Runs the whole
           page; FlowField scales its particle count down if frames get slow) */}
-      <div className="pointer-events-none fixed inset-0 z-0">
+      <div className="pointer-events-none fixed top-0 left-0 z-0 h-lvh w-full">
         <Canvas
           style={{ background: "#070708" }}
-          dpr={[1, 1.25]}
+          dpr={phone ? 1 : [1, 1.25]}
           gl={{ antialias: false, powerPreference: "high-performance" }}
         >
           <StarryBackground />
         </Canvas>
-        {/* Vignette + warm glow so content sits on a soft ground */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(91,156,255,0.08),transparent_55%),radial-gradient(ellipse_at_bottom,rgba(0,0,0,0.8),transparent_60%)]" />
+        {/* Vignette so content sits on a soft ground */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(0,0,0,0.8),transparent_60%)]" />
       </div>
 
 
-      <main className="relative z-10 flex flex-col items-center">
+      <main className="relative z-10 flex flex-col items-center pr-[env(safe-area-inset-right)] pl-[env(safe-area-inset-left)]">
         <section
           id="home"
-          className="flex min-h-dvh w-full scroll-mt-0 flex-col items-center justify-center-safe overflow-hidden pt-12 pb-10 md:py-14"
+          className="flex min-h-svh w-full scroll-mt-0 flex-col items-center justify-center-safe overflow-hidden pt-12 pb-10 md:py-14"
         >
           <Hero />
         </section>

@@ -2,6 +2,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { GPUComputationRenderer } from "three/examples/jsm/misc/GPUComputationRenderer.js";
+import { isPhone } from "../lib/device";
 
 /**
  * Background: tens of thousands of silver particles streaming through a
@@ -75,6 +76,8 @@ const VERT = /* glsl */ `
   uniform float uAspect;
   uniform float uPx;
   uniform float uClear; // 1 while the hero is on screen, 0 once scrolled past
+  uniform float uFade;  // 0 -> 1 after the simulation is (re)built
+  uniform float uShort; // 0 -> 1 on short landscape screens (phone sideways)
   attribute vec2 aRef;
   varying float vAlpha;
   varying float vSpeed;
@@ -86,10 +89,12 @@ const VERT = /* glsl */ `
     // Keep the hero's centre column (portrait + text) clean: particles thin
     // out inside a soft ellipse around it. On portrait screens (phones,
     // tablets) the content spans the full width, so the ellipse does too.
-    float rx = uAspect < 1.0 ? uAspect * 1.15 : min(0.95, uAspect * 0.85);
+    // Phone landscape (uShort) uses a two-column hero across the whole width.
+    float rx = mix(uAspect < 1.0 ? uAspect * 1.15 : min(0.95, uAspect * 0.85),
+                   uAspect * 1.05, uShort);
     vec2 q = vec2(s.x / rx, s.y / 1.2);
     float clear = mix(0.08, 1.0, smoothstep(0.6, 1.05, length(q)));
-    vAlpha = fade * (0.4 + vSpeed * 0.6) * mix(1.0, clear, uClear);
+    vAlpha = fade * (0.4 + vSpeed * 0.6) * mix(1.0, clear, uClear) * uFade;
     gl_PointSize = uPx * (0.85 + vSpeed * 0.8);
   }
 `;
@@ -100,15 +105,15 @@ const FRAG = /* glsl */ `
   void main() {
     float r = length(gl_PointCoord - 0.5);
     if (r > 0.5) discard;
-    // silver dust; the fastest streams pick up a hint of blue
-    vec3 col = mix(vec3(0.72, 0.74, 0.8), vec3(0.62, 0.78, 1.0), vSpeed * vSpeed);
+    // silver dust, a touch brighter when moving fast
+    vec3 col = mix(vec3(0.7, 0.71, 0.74), vec3(0.95, 0.95, 0.97), vSpeed * vSpeed);
     gl_FragColor = vec4(col, vAlpha * smoothstep(0.5, 0.0, r));
   }
 `;
 
 // Particle grid sizes, highest quality first. Drops a tier if frames get slow.
 const TIERS_DESKTOP = [192, 144, 104, 72]; // 36.9k .. 5.2k particles
-const TIERS_PHONE = [112, 84, 64]; // 12.5k .. 4.1k particles
+const TIERS_PHONE = [84, 64, 48]; // 7k .. 2.3k particles
 
 /** Can this GPU render into half-float textures (needed for the simulation)? */
 function canSimulate(gl: THREE.WebGLRenderer) {
@@ -127,10 +132,11 @@ export default function FlowField() {
 
 function Flow() {
   const gl = useThree((s) => s.gl);
-  const size = useThree((s) => s.size);
-  const aspect = size.width / Math.max(1, size.height);
-  const small = size.width < 768;
-  const tiers = small ? TIERS_PHONE : TIERS_DESKTOP;
+  // Read size per frame instead of subscribing, so resizes (phone address
+  // bar, rotation) never re-render or rebuild anything
+  const phone = useMemo(isPhone, []);
+
+  const tiers = phone ? TIERS_PHONE : TIERS_DESKTOP;
   const [tier, setTier] = useState(0);
   const N = tiers[Math.min(tier, tiers.length - 1)];
   const perf = useRef({ acc: 0, frames: 0, slow: 0, until: 4 });
@@ -145,6 +151,7 @@ function Flow() {
 
   // GPU simulation (rebuilt only if the particle count changes)
   const sim = useMemo(() => {
+    const aspect = window.innerWidth / Math.max(1, window.innerHeight);
     const gpu = new GPUComputationRenderer(N, N, gl);
     gpu.setDataType(THREE.HalfFloatType); // widest mobile support
     const init = gpu.createTexture();
@@ -173,7 +180,10 @@ function Flow() {
     return { gpu, variable };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gl, N]);
-  useEffect(() => () => sim?.gpu.dispose(), [sim]);
+  useEffect(() => {
+    if (mat.current) mat.current.uniforms.uFade.value = 0; // fade the new tier in
+    return () => sim?.gpu.dispose();
+  }, [sim]);
 
   const geometry = useMemo(() => {
     const g = new THREE.BufferGeometry();
@@ -196,6 +206,8 @@ function Flow() {
       uAspect: { value: 1 },
       uPx: { value: 2 },
       uClear: { value: 1 },
+      uFade: { value: 0 },
+      uShort: { value: 0 },
     }),
     [],
   );
@@ -252,6 +264,7 @@ function Flow() {
     }
 
     const dt = Math.min(delta, 1 / 30);
+    const aspect = state.size.width / Math.max(1, state.size.height);
     const u = sim.variable.material.uniforms;
     const p = pointer.current;
     p.on += (p.target - p.on) * Math.min(1, dt * 5);
@@ -276,8 +289,13 @@ function Flow() {
     if (mu) {
       mu.tPos.value = sim.gpu.getCurrentRenderTarget(sim.variable).texture;
       mu.uAspect.value = aspect;
-      mu.uPx.value = (small ? 2.6 : 2.4) * state.viewport.dpr;
+      mu.uPx.value = (phone ? 2.6 : 2.4) * state.viewport.dpr;
+      // fade particles in after a (re)build instead of popping
+      mu.uFade.value = Math.min(1, mu.uFade.value + dt * 0.8);
       mu.uClear.value = 1 - Math.min(1, y / (window.innerHeight * 0.8));
+      // Same rule as the CSS `short` variant; eased so rotating doesn't pop
+      const short = aspect > 1 && state.size.height <= 520 ? 1 : 0;
+      mu.uShort.value += (short - mu.uShort.value) * Math.min(1, dt * 4);
     }
   });
 

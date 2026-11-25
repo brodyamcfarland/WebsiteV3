@@ -39,26 +39,19 @@ const Hero = () => {
   const fancy = useFancyPortrait();
   const [particlesReady, setParticlesReady] = useState(false);
   return (
-    <div className="relative mx-auto flex w-full max-w-6xl select-none flex-col items-center px-6 text-center">
-      {/* Ambient glow behind the ring */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.6 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.6, delay: 0.4 }}
-        className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/10 blur-3xl md:h-[560px] md:w-[560px] md:bg-accent/5"
-      />
+    <div className="short:grid short:grid-cols-[auto_minmax(0,1fr)] short:items-center short:gap-x-12 short:text-left relative mx-auto flex w-full max-w-6xl select-none flex-col items-center px-6 text-center">
 
       {/* Name + title */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="relative z-30 mb-4 md:mb-0"
+        className="short:col-start-2 short:row-start-1 short:mb-0 short:self-end relative z-30 mb-4 md:mb-0"
       >
-        <h1 className="font-montserrat text-2xl font-semibold tracking-widest text-white uppercase md:text-4xl 2xl:text-5xl">
+        <h1 className="font-montserrat short:text-2xl text-2xl font-semibold tracking-widest text-white uppercase md:text-4xl 2xl:text-5xl">
           Brody McFarland
         </h1>
-        <h2 className="font-montserrat mt-2 pb-4 text-xs tracking-wider text-gray-400 uppercase md:pb-6 md:text-sm">
+        <h2 className="font-montserrat short:pb-2 mt-2 pb-4 text-xs tracking-wider text-gray-400 uppercase md:pb-6 md:text-sm">
           Full-Stack Web Developer
         </h2>
       </motion.div>
@@ -68,7 +61,7 @@ const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1 }}
-        className="relative z-20 my-12 flex size-52 items-center justify-center rounded-full md:my-12 md:size-96 2xl:my-16 2xl:size-[30rem]"
+        className="short:col-start-1 short:row-span-2 short:row-start-1 short:mx-10 short:my-0 short:size-52 relative z-20 my-12 flex size-52 items-center justify-center rounded-full md:my-12 md:size-96 2xl:my-16 2xl:size-[30rem]"
       >
         <SkillRing
           selectedSkill={selectedSkill}
@@ -76,7 +69,7 @@ const Hero = () => {
         />
         <Image
           src="/heroimage.png"
-          className={`relative z-10 h-full w-full rounded-full object-cover shadow-[0_0_60px_-10px_rgba(91,156,255,0.35)] transition-opacity duration-1000 ${
+          className={`relative z-10 h-full w-full rounded-full object-cover transition-opacity duration-1000 ${
             particlesReady ? "opacity-0" : "opacity-80"
           }`}
           width={1000}
@@ -92,11 +85,11 @@ const Hero = () => {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1.6 }}
-        className="relative z-30 mt-6 flex flex-col items-center gap-4 md:mt-10"
+        className="short:col-start-2 short:row-start-2 short:mt-3 short:items-start short:gap-3 short:self-start relative z-30 mt-6 flex flex-col items-center gap-4 md:mt-10"
       >
         <p
           aria-live="polite"
-          className="flex min-h-9 items-center justify-center text-xs leading-normal tracking-widest text-gray-400"
+          className="short:justify-start flex min-h-9 items-center justify-center text-xs leading-normal tracking-widest text-gray-400"
         >
           {selectedSkill ? (
             <span className="text-white font-display animate-pulse-slow text-lg leading-normal font-bold tracking-[0.2em] md:text-2xl">
@@ -111,7 +104,7 @@ const Hero = () => {
           I build and ship full-stack products — from production social and
           medical-office apps to 3-D experiments. Currently open to new roles.
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-3">
+        <div className="short:justify-start flex flex-wrap items-center justify-center gap-3">
           <Link href="#projects" className="btn-primary group">
             See my work
             <BsArrowDown className="transition-transform duration-300 group-hover:translate-y-0.5" />

@@ -1,12 +1,11 @@
-import { useFrame, useThree } from "@react-three/fiber";
+import { useFrame } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 
 /**
  * Full-screen nebula drawn behind the stars with a hand-written fragment
- * shader: layered fractal noise drifting slowly in soft graphite with a
- * cool tint, and a soft blue glow that follows the cursor. Cheaper (fewer noise
- * octaves) on small screens.
+ * shader: layered fractal noise drifting slowly in soft neutral graphite,
+ * with slight parallax toward the cursor. Desktop only (see StarryBackground).
  */
 const fragment = (octaves: number) => /* glsl */ `
   precision highp float;
@@ -41,8 +40,7 @@ const fragment = (octaves: number) => /* glsl */ `
 
     vec3 col = vec3(0.027, 0.027, 0.031);
     col += vec3(0.55, 0.6, 0.7) * pow(n, 3.2) * 0.22;  // graphite clouds
-    col += vec3(0.04, 0.06, 0.13) * pow(q.x, 3.0) * 0.25; // faint cool undertone
-    col += vec3(0.36, 0.6, 1.0) * 0.06 * smoothstep(0.55, 0.0, length(p - m + m * 0.06)); // cursor glow
+    col += vec3(0.07, 0.07, 0.08) * pow(q.x, 3.0) * 0.25; // neutral undertone
 
     // Vignette keeps the edges ink-dark so content stays readable
     col *= smoothstep(1.25, 0.25, length((vUv - 0.5) * vec2(aspect * 0.9, 1.2)));
@@ -60,9 +58,9 @@ const vertex = /* glsl */ `
 
 export default function Nebula() {
   const mat = useRef<THREE.ShaderMaterial>(null);
-  const size = useThree((s) => s.size);
+
   const mouse = useRef(new THREE.Vector2(0.5, 0.5));
-  const small = size.width < 768;
+
 
   const uniforms = useMemo(
     () => ({
@@ -84,7 +82,7 @@ export default function Nebula() {
     const u = mat.current?.uniforms;
     if (!u) return;
     u.uTime.value = state.clock.elapsedTime;
-    u.uRes.value.set(size.width, size.height);
+    u.uRes.value.set(state.size.width, state.size.height); // read per frame: no re-render on resize
     u.uMouse.value.lerp(mouse.current, Math.min(1, dt * 2.5));
   });
 
@@ -92,10 +90,10 @@ export default function Nebula() {
     <mesh frustumCulled={false} renderOrder={-1}>
       <planeGeometry args={[2, 2]} />
       <shaderMaterial
-        key={small ? "s" : "l"}
+
         ref={mat}
         vertexShader={vertex}
-        fragmentShader={fragment(small ? 4 : 5)}
+        fragmentShader={fragment(5)}
         uniforms={uniforms}
         depthTest={false}
         depthWrite={false}

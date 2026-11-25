@@ -1,6 +1,7 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
+import { isPhone } from "../lib/device";
 
 /**
  * The hero portrait, rebuilt from thousands of glowing particles sampled from
@@ -113,8 +114,8 @@ const fragment = /* glsl */ `
 `;
 
 function Points({ sample, onReady }: { sample: Sample; onReady: () => void }) {
-  const size = useThree((s) => s.size);
-  const dpr = useThree((s) => s.viewport.dpr);
+
+
   const mat = useRef<THREE.ShaderMaterial>(null);
   const pointer = useRef({ x: 9999, y: 9999, active: false });
   const t0 = useRef<number | null>(null);
@@ -177,11 +178,11 @@ function Points({ sample, onReady }: { sample: Sample; onReady: () => void }) {
     if (t0.current === null) t0.current = state.clock.elapsedTime;
     const t = state.clock.elapsedTime - t0.current;
     const u = m.uniforms;
-    const portrait = (size.width / OVERSCAN) * SIZE; // figure size in px
+    const portrait = (state.size.width / OVERSCAN) * SIZE; // figure size in px (read per frame: no re-render on resize)
     u.uTime.value = t;
     u.uIntro.value = Math.min(1, t / 2.4);
     u.uScale.value = portrait;
-    u.uPx.value = Math.max(1.6, (portrait / Math.sqrt(sample.count)) * 1.25) * dpr;
+    u.uPx.value = Math.max(1.6, (portrait / Math.sqrt(sample.count)) * 1.25) * state.viewport.dpr;
     const scatter = Math.min(1, Math.max(0, window.scrollY / (window.innerHeight * 0.75)));
     u.uScatter.value += (scatter - u.uScatter.value) * Math.min(1, dt * 6);
     u.uMouse.value.set(pointer.current.x, pointer.current.y);
@@ -215,7 +216,7 @@ export default function ParticlePortrait({ onReady }: { onReady: () => void }) {
 
   useEffect(() => {
     let alive = true;
-    const mobile = window.matchMedia("(max-width: 767px)").matches;
+    const mobile = isPhone() || window.matchMedia("(max-width: 767px)").matches;
     samplePortrait(mobile ? 110 : 165)
       .then((s) => alive && setSample(s))
       .catch(() => {}); // keep the static image if anything goes wrong
@@ -244,7 +245,7 @@ export default function ParticlePortrait({ onReady }: { onReady: () => void }) {
         <Canvas
           orthographic
           camera={{ position: [0, 0, 500], zoom: 1, near: 0.1, far: 2000 }}
-          dpr={[1, 2]}
+          dpr={isPhone() ? [1, 1.5] : [1, 2]}
           frameloop={running ? "always" : "never"}
           gl={{ alpha: true, antialias: false, powerPreference: "high-performance" }}
           style={{ pointerEvents: "none" }}
