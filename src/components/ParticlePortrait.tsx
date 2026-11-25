@@ -111,7 +111,7 @@ const fragment = /* glsl */ `
   void main() {
     float r = length(gl_PointCoord - 0.5);
     if (r > 0.5) discard;
-    float soft = smoothstep(0.5, 0.1, r);
+    float soft = smoothstep(0.5, 0.3, r); // crisp dot, slightly feathered edge
     // Cool grey shadows with a faint blue cast, near-white highlights
     vec3 col = mix(vec3(0.5, 0.58, 0.74), vec3(0.97, 0.98, 1.0), smoothstep(0.25, 0.85, vLum));
     gl_FragColor = vec4(col, vAlpha * soft);
@@ -222,7 +222,7 @@ export default function ParticlePortrait({ onReady }: { onReady: () => void }) {
   useEffect(() => {
     let alive = true;
     const mobile = isPhone() || window.matchMedia("(max-width: 767px)").matches;
-    samplePortrait(mobile ? 110 : 165)
+    samplePortrait(mobile ? 150 : 165)
       .then((s) => alive && setSample(s))
       .catch(() => {}); // keep the static image if anything goes wrong
     return () => {
@@ -250,7 +250,7 @@ export default function ParticlePortrait({ onReady }: { onReady: () => void }) {
         <Canvas
           orthographic
           camera={{ position: [0, 0, 500], zoom: 1, near: 0.1, far: 2000 }}
-          dpr={isPhone() ? [1, 1.5] : [1, 2]}
+          dpr={[1, 3]}
           frameloop={running ? "always" : "never"}
           gl={{ alpha: true, antialias: false, powerPreference: "high-performance" }}
           style={{ pointerEvents: "none" }}
