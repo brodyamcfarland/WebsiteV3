@@ -6,17 +6,17 @@ import { isPhone } from "../lib/device";
 /**
  * The hero portrait, rebuilt from thousands of glowing particles sampled from
  * /heroimage.png. They fly in and assemble on load, swirl away from the
- * pointer (mouse or finger), and scatter outward into the starfield as you
- * scroll down. Rendered with a custom point shader, additive blending.
+ * pointer (mouse or finger), and otherwise hold still.
+ * Rendered with a custom point shader, additive blending.
  *
- * The canvas is larger than the portrait (see `OVERSCAN`) so scattered
- * particles aren't clipped at the circle's edge.
+ * The canvas is larger than the portrait (see `OVERSCAN`) so particles
+ * flying in aren't clipped.
  */
 export const OVERSCAN = 1.9;
 /** How much bigger than the portrait slot the particle figure is drawn. */
 const SIZE = 1.3;
 
-type Sample = { target: Float32Array; start: Float32Array; lum: Float32Array; rand: Float32Array; count: number };
+type Sample = { target: Float32Array; start: Float32Array; lum: Float32Array; rand: Float32Array; count: number; grid: number };
 
 async function samplePortrait(grid: number): Promise<Sample> {
   const img = new Image();
@@ -38,7 +38,7 @@ async function samplePortrait(grid: number): Promise<Sample> {
       const u = x / grid - 0.5;
       const v = 0.5 - y / grid;
       const l = (0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2]) / 255;
-      target.push(u + (Math.random() - 0.5) / grid, v + (Math.random() - 0.5) / grid, 0);
+      target.push(u + ((Math.random() - 0.5) * 0.35) / grid, v + ((Math.random() - 0.5) * 0.35) / grid, 0);
       lum.push(l);
     }
   }
@@ -46,15 +46,16 @@ async function samplePortrait(grid: number): Promise<Sample> {
   const start = new Float32Array(count * 3);
   const rand = new Float32Array(count);
   for (let i = 0; i < count; i++) {
-    // Start on a wide random shell so they "fly in" from all around
+    // Start in a soft round cloud (inside the visible circle, so the intro
+    // never shows the canvas edge) and condense into the face
     const a = Math.random() * Math.PI * 2;
-    const r = 0.7 + Math.random() * 0.9;
+    const r = 0.62 * Math.sqrt(Math.random()); // even spread across the disc
     start[i * 3] = Math.cos(a) * r;
     start[i * 3 + 1] = Math.sin(a) * r;
     start[i * 3 + 2] = (Math.random() - 0.5) * 0.5;
     rand[i] = Math.random();
   }
-  return { target: new Float32Array(target), start, lum: new Float32Array(lum), rand, count };
+  return { target: new Float32Array(target), start, lum: new Float32Array(lum), rand, count, grid };
 }
 
 const vertex = /* glsl */ `
@@ -64,11 +65,14 @@ const vertex = /* glsl */ `
   attribute float aRand;
   uniform float uTime;
   uniform float uIntro;
-  uniform float uScatter;
   uniform float uScale;
   uniform float uPx;
   uniform vec2 uMouse;
   uniform float uForce;
+  uniform float uReach;  // push radius (bigger for fingers than for a mouse)
+  uniform float uPush;   // push strength
+  uniform vec2 uBurstAt; // where the last tap landed
+  uniform float uBurst;  // 1 -> 0 as the tap ripple spreads out
   varying float vAlpha;
   varying float vLum;
 
@@ -79,26 +83,32 @@ const vertex = /* glsl */ `
     vec3 p = mix(aStart, aTarget, e) * uScale;
 
     // Idle shimmer
-    p.xy += vec2(sin(uTime * 1.3 + aRand * 40.0), cos(uTime * 1.1 + aRand * 30.0)) * 0.7;
+    p.xy += vec2(sin(uTime * 1.3 + aRand * 40.0), cos(uTime * 1.1 + aRand * 30.0)) * 0.3;
 
     // Pointer: push particles away with a little swirl
     vec2 diff = p.xy - uMouse;
     float dist = length(diff);
-    float f = smoothstep(uScale * 0.22, 0.0, dist) * uForce;
+    float f = smoothstep(uScale * uReach, 0.0, dist) * uForce;
     vec2 dir = diff / max(dist, 0.001);
-    p.xy += (dir + vec2(-dir.y, dir.x) * 0.6) * f * uScale * 0.09;
+    p.xy += (dir + vec2(-dir.y, dir.x) * 0.6) * f * uScale * uPush;
 
-    // Scroll: burst outward into the starfield
-    vec3 outward = normalize(aStart + vec3(0.0001));
-    p += outward * uScatter * uScale * (0.5 + aRand * 1.6);
-    p.z += uScatter * (aRand - 0.5) * uScale;
+    // Tap: a ring ripples outward from the tap point, nudging dots as it passes
+    float glow = 0.0;
+    if (uBurst > 0.0) {
+      vec2 bd = p.xy - uBurstAt;
+      float bl = length(bd);
+      float ring = (1.0 - uBurst) * uScale * 0.9;
+      float band = exp(-pow((bl - ring) / (uScale * 0.09), 2.0)) * uBurst;
+      p.xy += (bd / max(bl, 0.001)) * band * uScale * 0.09;
+      glow = band;
+    }
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
-    gl_PointSize = uPx * (0.75 + aLum * 0.7) * (1.0 + uScatter * 0.6);
+    gl_PointSize = uPx * (0.75 + aLum * 0.7);
     vLum = aLum;
-    vAlpha = (0.12 + aLum * 0.6) * (1.0 - uScatter * 0.85) * smoothstep(0.0, 0.25, uIntro);
+    vAlpha = (0.2 + aLum * 0.85) * smoothstep(0.0, 0.25, uIntro) * (1.0 + glow * 1.3);
     // Fade out in a circle before the canvas's square edge, so particles
-    // flying in or scattering never reveal a hard box outline
+    // flying in never reveal a hard box outline
     // (the assembled figure spans about +/-0.68 of the canvas, so it's untouched)
     vec2 ndc = abs(gl_Position.xy / gl_Position.w);
     vAlpha *= smoothstep(1.0, 0.72, max(ndc.x, ndc.y)) * smoothstep(1.3, 0.97, length(ndc));
@@ -122,7 +132,7 @@ function Points({ sample, onReady }: { sample: Sample; onReady: () => void }) {
 
 
   const mat = useRef<THREE.ShaderMaterial>(null);
-  const pointer = useRef({ x: 9999, y: 9999, active: false });
+  const pointer = useRef({ x: 9999, y: 9999, active: false, touch: false });
   const t0 = useRef<number | null>(null);
   const readied = useRef(false);
 
@@ -141,14 +151,18 @@ function Points({ sample, onReady }: { sample: Sample; onReady: () => void }) {
     () => ({
       uTime: { value: 0 },
       uIntro: { value: 0 },
-      uScatter: { value: 0 },
       uScale: { value: 1 },
       uPx: { value: 2 },
       uMouse: { value: new THREE.Vector2(9999, 9999) },
       uForce: { value: 0 },
+      uReach: { value: 0.22 },
+      uPush: { value: 0.09 },
+      uBurstAt: { value: new THREE.Vector2() },
+      uBurst: { value: 0 },
     }),
     [],
   );
+  const burst = useRef({ x: 0, y: 0, t: 0 });
 
   // Pointer + touch, tracked on window so the canvas can stay pointer-events:none
   const gl = useThree((s) => s.gl);
@@ -160,17 +174,31 @@ function Points({ sample, onReady }: { sample: Sample; onReady: () => void }) {
       pointer.current.y = r.top + r.height / 2 - cy;
       pointer.current.active = true;
     };
-    const onPointer = (e: PointerEvent) => set(e.clientX, e.clientY);
-    const onTouch = (e: TouchEvent) => e.touches[0] && set(e.touches[0].clientX, e.touches[0].clientY);
+    const onPointer = (e: PointerEvent) => {
+      pointer.current.touch = e.pointerType !== "mouse";
+      set(e.clientX, e.clientY);
+    };
+    // A press on the figure itself sends a ripple through it
+    const onDown = (e: PointerEvent) => {
+      onPointer(e);
+      const r = canvas.getBoundingClientRect();
+      const half = ((r.width / OVERSCAN) * SIZE) / 2;
+      const { x, y } = pointer.current;
+      if (Math.abs(x) < half && Math.abs(y) < half) burst.current = { x, y, t: 1 };
+    };
+    const onTouch = (e: TouchEvent) => {
+      pointer.current.touch = true;
+      if (e.touches[0]) set(e.touches[0].clientX, e.touches[0].clientY);
+    };
     const off = () => (pointer.current.active = false);
     window.addEventListener("pointermove", onPointer, { passive: true });
-    window.addEventListener("pointerdown", onPointer, { passive: true });
+    window.addEventListener("pointerdown", onDown, { passive: true });
     window.addEventListener("touchmove", onTouch, { passive: true });
     window.addEventListener("touchend", off, { passive: true });
     document.addEventListener("pointerleave", off);
     return () => {
       window.removeEventListener("pointermove", onPointer);
-      window.removeEventListener("pointerdown", onPointer);
+      window.removeEventListener("pointerdown", onDown);
       window.removeEventListener("touchmove", onTouch);
       window.removeEventListener("touchend", off);
       document.removeEventListener("pointerleave", off);
@@ -187,12 +215,21 @@ function Points({ sample, onReady }: { sample: Sample; onReady: () => void }) {
     u.uTime.value = t;
     u.uIntro.value = Math.min(1, t / 2.4);
     u.uScale.value = portrait;
-    u.uPx.value = Math.max(1.1, (portrait / Math.sqrt(sample.count)) * 1.25) * state.viewport.dpr;
-    const scatter = Math.min(1, Math.max(0, window.scrollY / (window.innerHeight * 0.75)));
-    u.uScatter.value += (scatter - u.uScatter.value) * Math.min(1, dt * 6);
+    // Dot = the gap between neighbouring samples (plus a hair of overlap), so
+    // dots stay crisp and separate instead of blobbing together
+    u.uPx.value = Math.max(1, (portrait / sample.grid) * 1.15 * state.viewport.dpr);
     u.uMouse.value.set(pointer.current.x, pointer.current.y);
     const want = pointer.current.active ? 1 : 0;
     u.uForce.value += (want - u.uForce.value) * Math.min(1, dt * 4);
+    // Fingers are blunter than a cursor: wider, stronger push
+    u.uReach.value = pointer.current.touch ? 0.27 : 0.22;
+    u.uPush.value = pointer.current.touch ? 0.11 : 0.09;
+    const b = burst.current;
+    if (b.t > 0) {
+      b.t = Math.max(0, b.t - dt * 1.3);
+      u.uBurstAt.value.set(b.x, b.y);
+    }
+    u.uBurst.value = b.t;
     if (!readied.current && t > 0.05) {
       readied.current = true;
       onReady();
@@ -222,7 +259,7 @@ export default function ParticlePortrait({ onReady }: { onReady: () => void }) {
   useEffect(() => {
     let alive = true;
     const mobile = isPhone() || window.matchMedia("(max-width: 767px)").matches;
-    samplePortrait(mobile ? 200 : 165)
+    samplePortrait(mobile ? 300 : 360)
       .then((s) => alive && setSample(s))
       .catch(() => {}); // keep the static image if anything goes wrong
     return () => {

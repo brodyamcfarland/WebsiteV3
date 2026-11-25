@@ -67,7 +67,9 @@ const Hero = () => {
         />
         <Image
           src="/heroimage.png"
-          className={`relative z-10 h-full w-full rounded-full object-cover transition-opacity duration-1000 ${
+          // Dragging on the face plays with the particles instead of scrolling
+          draggable={false}
+          className={`relative z-10 h-full w-full touch-none rounded-full object-cover transition-opacity duration-1000 [-webkit-touch-callout:none] ${
             particlesReady ? "opacity-0" : "opacity-80"
           }`}
           width={1000}

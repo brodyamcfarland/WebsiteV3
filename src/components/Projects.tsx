@@ -345,8 +345,7 @@ const Projects = () => {
     <div className="mx-auto w-full max-w-6xl px-6 md:px-24 xl:px-6">
       <div className="mb-10 flex flex-col gap-3 md:mb-14 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="eyebrow">01 — Selected work</p>
-          <h2 className="section-title mt-3">Projects</h2>
+          <h2 className="section-title">Projects</h2>
         </div>
         <p className="max-w-sm text-sm text-gray-500">
           Two production apps I build with a small team, two games I built

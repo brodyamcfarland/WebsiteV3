@@ -104,6 +104,7 @@ const SkillRing = ({ selectedSkill, setSelectedSkill }: Props) => {
   const hovered = useRef<number>(-1);
   const selectedIndex = useRef(-1);
   selectedIndex.current = skillImages.findIndex((s) => s.src === selectedSkill?.src);
+  const label = useRef<HTMLSpanElement>(null); // name pill that follows the selected logo
 
   useEffect(() => {
     const el = wrap.current;
@@ -165,6 +166,10 @@ const SkillRing = ({ selectedSkill, setSelectedSkill }: Props) => {
     const blurs = skillImages.map(() => -1);
     const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting));
     io.observe(el);
+    // Ring's left edge on screen (only changes on resize / rotate)
+    let wrapLeft = el.getBoundingClientRect().left;
+    const ro = new ResizeObserver(() => (wrapLeft = el.getBoundingClientRect().left));
+    ro.observe(document.documentElement);
 
     const frame = (now: number) => {
       const dt = Math.min(now - last, 50);
@@ -203,6 +208,19 @@ const SkillRing = ({ selectedSkill, setSelectedSkill }: Props) => {
           }
           // Particle redraw at ~30fps; skip chips that are nearly invisible
           if (tick % 2 === i % 2 && alpha > 0.12) drawChip(i, now, ease);
+          // Name pill rides just under the selected logo, and fades out while
+          // the logo passes behind the portrait so it never covers the face
+          const tag = label.current;
+          if (tag && i === selectedIndex.current) {
+            const below = (node.offsetHeight / 2) * scale + 6;
+            // keep the pill on screen when the logo is near the edge
+            const half = tag.offsetWidth / 2;
+            const lo = 8 - wrapLeft + half;
+            const hi = document.documentElement.clientWidth - 8 - wrapLeft - half;
+            const px = Math.min(Math.max(x, lo), Math.max(lo, hi));
+            tag.style.transform = `translate3d(${px}px, ${y + below}px, 0) translate(-50%, 0)`;
+            tag.style.opacity = String(ease * Math.min(1, Math.max(0, depth * 3 + 1)));
+          }
         }
       }
       tick++;
@@ -212,6 +230,7 @@ const SkillRing = ({ selectedSkill, setSelectedSkill }: Props) => {
     return () => {
       cancelAnimationFrame(raf);
       io.disconnect();
+      ro.disconnect();
     };
   }, []);
 
@@ -285,6 +304,17 @@ const SkillRing = ({ selectedSkill, setSelectedSkill }: Props) => {
           </button>
         );
       })}
+
+      {selectedSkill?.title && (
+        <span
+          ref={label}
+          aria-hidden
+          style={{ opacity: 0 }}
+          className="pointer-events-none absolute top-0 left-0 z-30 whitespace-nowrap rounded-full border border-white/15 bg-ink/85 px-2.5 py-0.5 text-[10px] font-semibold tracking-wider text-white will-change-transform md:px-3 md:py-1 md:text-xs"
+        >
+          {selectedSkill.title}
+        </span>
+      )}
 
       {/* 3-D site link: top-right of the portrait, clear of the orbit */}
       <div className="pointer-events-auto absolute top-[4%] right-[-6%] z-30 md:top-[6%] md:right-[-4%]">

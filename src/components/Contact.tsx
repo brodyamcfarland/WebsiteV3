@@ -56,8 +56,7 @@ const Contact = () => {
   return (
     <div className="mx-auto w-full max-w-6xl px-6 md:px-24 xl:px-6">
       <div className="mb-10 md:mb-14">
-        <p className="eyebrow">02 — Get in touch</p>
-        <h2 className="section-title mt-3">Contact</h2>
+        <h2 className="section-title">Contact</h2>
       </div>
 
       <motion.div

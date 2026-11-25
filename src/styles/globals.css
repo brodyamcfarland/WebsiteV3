@@ -91,15 +91,6 @@
 
 /* ---------- Reusable components ---------- */
 @layer components {
-  /* "01 — Selected work" label with a short accent rule */
-  .eyebrow {
-    @apply font-main text-gray-400 flex items-center gap-3 text-[11px] font-semibold tracking-[0.35em] uppercase;
-    &::before {
-      content: "";
-      @apply bg-accent/70 h-px w-8;
-    }
-  }
-
   .section-title {
     @apply font-display text-3xl font-bold tracking-tight text-white md:text-5xl;
   }
