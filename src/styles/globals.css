@@ -54,6 +54,27 @@
     -webkit-font-smoothing: antialiased;
     /* Scrolling only: no pinch or double-tap zoom on touch screens */
     touch-action: pan-x pan-y;
+    /* Slim monochrome scrollbar (inherited by inner scroll areas too) */
+    scrollbar-width: thin;
+    scrollbar-color: rgb(255 255 255 / 0.28) #070708;
+  }
+  /* Safari doesn't support scrollbar-color yet */
+  @supports not (scrollbar-color: auto) {
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #070708;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgb(255 255 255 / 0.28);
+      border: 3px solid #070708;
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgb(255 255 255 / 0.55);
+    }
   }
   ::selection {
     background: --alpha(var(--color-accent) / 35%);
